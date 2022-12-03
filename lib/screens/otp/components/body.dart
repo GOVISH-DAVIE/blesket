@@ -1,3 +1,4 @@
+import 'package:blesket/screens/home/home.dart';
 import 'package:blesket/screens/otp/otp.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
@@ -211,7 +212,7 @@ class _BodyState extends State<Body> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, OTP.route);
+                          Navigator.pushNamed(context, Home.route);
                         },
                         child: Image.asset(
                           'assets/images/correctbtn.png',
