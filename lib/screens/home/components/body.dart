@@ -1,4 +1,5 @@
 import 'package:blesket/components/navigation.dart';
+import 'package:blesket/screens/checkout/checkout.dart';
 import 'package:blesket/screens/home/components/cartCotainer.dart';
 import 'package:blesket/screens/home/components/tabviewContainer.dart';
 import 'package:blesket/utils/color.dart';
@@ -185,9 +186,11 @@ class _BodyState extends State<Body> {
                         color: themeGreen),
                     width: MediaQuery.of(context).size.width / (2.1),
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, Checkout.route);
+                        },
                         child: const Text(
-                          'chekout',
+                          'checkout',
                           style: TextStyle(color: Colors.white),
                         ))),
                 const SizedBox(
