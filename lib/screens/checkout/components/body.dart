@@ -1,5 +1,6 @@
 import 'package:blesket/components/navigation.dart';
 import 'package:blesket/screens/checkoutCard/checkoutcard.dart';
+import 'package:blesket/screens/checkoutMpesa/checkoutMpesa.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
 
@@ -67,31 +68,36 @@ class _BodyState extends State<Body> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 96,
-                          width: 112,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              // image: DecorationImage(
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, CheckoutMpesa.route);
+                          },
+                          child: Container(
+                            height: 96,
+                            width: 112,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                // image: DecorationImage(
 
-                              // image: AssetImage('',
-                              // )
-                              // ),
-                              border:
-                                  Border.all(color: themeGrey.withOpacity(.3))),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/images/mpesa.png',
-                                height: 24,
-                                width: 70,
-                              ),
-                              Text(
-                                'MPESA',
-                                style: TextStyle(fontWeight: FontWeight.w600),
-                              )
-                            ],
+                                // image: AssetImage('',
+                                // )
+                                // ),
+                                border: Border.all(
+                                    color: themeGrey.withOpacity(.3))),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.asset(
+                                  'assets/images/mpesa.png',
+                                  height: 24,
+                                  width: 70,
+                                ),
+                                Text(
+                                  'MPESA',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

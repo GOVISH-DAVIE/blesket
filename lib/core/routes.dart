@@ -1,5 +1,6 @@
 import 'package:blesket/screens/checkout/checkout.dart';
 import 'package:blesket/screens/checkoutCard/checkoutcard.dart';
+import 'package:blesket/screens/checkoutMpesa/checkoutMpesa.dart';
 import 'package:blesket/screens/home/home.dart';
 import 'package:blesket/screens/login/login.dart';
 import 'package:blesket/screens/otp/otp.dart';
@@ -13,4 +14,5 @@ final Map<String, WidgetBuilder> routes = {
   Home.route: (context) => const Home(),
   CheckoutCard.route: (context) => const CheckoutCard(),
   Receipt.route: (context) => const Receipt(),
+  CheckoutMpesa.route: (context) => const CheckoutMpesa(),
 };
