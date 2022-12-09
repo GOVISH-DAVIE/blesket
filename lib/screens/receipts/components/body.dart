@@ -1,5 +1,6 @@
 import 'package:blesket/components/navigation.dart';
 import 'package:blesket/screens/checkoutCard/checkoutcard.dart';
+import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -75,28 +76,27 @@ class _BodyState extends State<Body> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 96,
-                          width: 112,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              // image: DecorationImage(
-
-                              // image: AssetImage('',
-                              // )
-                              // ),
-                              border:
-                                  Border.all(color: themeGrey.withOpacity(.3))),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SvgPicture.asset('assets/images/viewReceipt.svg',
-                                  semanticsLabel: 'Acme Logo'),
-                              const Text(
-                                'View receipt',
-                                style: TextStyle(fontWeight: FontWeight.w600),
-                              )
-                            ],
+                        child: InkWell(
+                          onTap: () {},
+                          child: Container(
+                            height: 96,
+                            width: 112,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    color: themeGrey.withOpacity(.3))),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                SvgPicture.asset(
+                                    'assets/images/viewReceipt.svg',
+                                    semanticsLabel: 'Acme Logo'),
+                                const Text(
+                                  'View receipt',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -104,7 +104,8 @@ class _BodyState extends State<Body> {
                         padding: const EdgeInsets.all(8.0),
                         child: InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, CheckoutCard.route);
+                            dialogBuilder(context);
+                            // Navigator.pushNamed(context, CheckoutCard.route);
                           },
                           child: Container(
                             height: 96,
