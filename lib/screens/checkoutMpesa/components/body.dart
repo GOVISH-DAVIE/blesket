@@ -30,7 +30,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: navigation(),
+      appBar: navigation(context),
       body: DefaultTabController(
         length: 3,
         child: Column(

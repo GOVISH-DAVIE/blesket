@@ -3,6 +3,7 @@ import 'package:blesket/screens/checkoutCard/checkoutcard.dart';
 import 'package:blesket/screens/checkoutMpesa/checkoutMpesa.dart';
 import 'package:blesket/screens/home/home.dart';
 import 'package:blesket/screens/login/login.dart';
+import 'package:blesket/screens/myaccount/myaccount.dart';
 import 'package:blesket/screens/otp/otp.dart';
 import 'package:blesket/screens/receipts/receipts.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,4 +16,5 @@ final Map<String, WidgetBuilder> routes = {
   CheckoutCard.route: (context) => const CheckoutCard(),
   Receipt.route: (context) => const Receipt(),
   CheckoutMpesa.route: (context) => const CheckoutMpesa(),
+  MyAccount.route: (context) => const MyAccount(),
 };

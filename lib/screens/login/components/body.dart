@@ -1,8 +1,6 @@
 import 'package:blesket/screens/otp/otp.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class Body extends StatefulWidget {

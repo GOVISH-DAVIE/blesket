@@ -16,7 +16,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: navigation(),
+      appBar: navigation(context),
       body: Column(children: [
         const SizedBox(
           height: 10,
@@ -65,7 +65,7 @@ class _BodyState extends State<Body> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
+                  const Text(
                     'Show ratings',
                     style: TextStyle(color: Color(0xff262626)),
                   ),
@@ -105,7 +105,7 @@ class _BodyState extends State<Body> {
                   color: Colors.white,
                   child: const CartContainer(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
@@ -160,7 +160,7 @@ class _BodyState extends State<Body> {
                           ),
                         ],
                       ),
-                      Text(
+                      const Text(
                         'Ksh 3872.00',
                         style: TextStyle(fontWeight: FontWeight.w700),
                       ),
@@ -177,7 +177,7 @@ class _BodyState extends State<Body> {
                   color: Colors.white,
                   child: const TabContainer(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(

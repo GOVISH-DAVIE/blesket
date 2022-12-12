@@ -15,7 +15,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: navigation(),
+      appBar: navigation(context),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -70,8 +70,8 @@ class _BodyState extends State<Body> {
                               color: themeGrey.withOpacity(.2),
                               border:
                                   Border.all(color: themeGrey.withOpacity(0))),
-                          child: Center(
-                            child: const Text(
+                          child: const Center(
+                            child: Text(
                               'Insert/Swipe card to  pay',
                             ),
                           ),

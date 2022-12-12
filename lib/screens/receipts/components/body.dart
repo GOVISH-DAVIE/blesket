@@ -1,5 +1,4 @@
 import 'package:blesket/components/navigation.dart';
-import 'package:blesket/screens/checkoutCard/checkoutcard.dart';
 import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +15,12 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: navigation(),
+      appBar: navigation(context),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           const Text(
