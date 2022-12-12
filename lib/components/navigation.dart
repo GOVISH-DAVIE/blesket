@@ -1,3 +1,4 @@
+import 'package:blesket/screens/home/home.dart';
 import 'package:blesket/screens/myaccount/myaccount.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +8,14 @@ AppBar navigation(BuildContext context) {
     automaticallyImplyLeading: false,
     backgroundColor: Colors.white,
     elevation: 0,
-    title: Image.asset(
-      'assets/images/logo.png',
-      height: 40,
+    title: InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, Home.route);
+      },
+      child: Image.asset(
+        'assets/images/logo.png',
+        height: 40,
+      ),
     ),
     actions: [
       Row(

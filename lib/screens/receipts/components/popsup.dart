@@ -9,7 +9,7 @@ Future<void> dialogBuilder(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: const Text('Email receipt'),
-        content: SizedBox(
+        content: Container(
           height: 300,
           width: 500,
           child: Column(
@@ -17,8 +17,11 @@ Future<void> dialogBuilder(BuildContext context) {
               const SizedBox(
                 height: 30,
               ),
-              SvgPicture.asset('assets/images/warning.svg',
-                  height: 74, semanticsLabel: 'Acme Logo'),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SvgPicture.asset('assets/images/warning.svg',
+                    height: 74, semanticsLabel: 'Acme Logo'),
+              ),
               const SizedBox(
                 height: 20,
               ),

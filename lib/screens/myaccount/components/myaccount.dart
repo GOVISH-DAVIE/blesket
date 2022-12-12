@@ -1,8 +1,7 @@
 import 'package:blesket/components/navigation.dart';
+import 'package:blesket/screens/invoicehistory/invoicehistory.dart';
 import 'package:flutter/material.dart';
-import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/utils/color.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class Body extends StatefulWidget {
@@ -205,7 +204,10 @@ class _BodyState extends State<Body> {
                                       ],
                                     ),
                                     OutlinedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, InvoiceHistory.route);
+                                      },
                                       style: ButtonStyle(
                                         // minimumSize: ,
                                         foregroundColor:
