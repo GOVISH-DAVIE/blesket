@@ -1,3 +1,4 @@
+import 'package:blesket/screens/home/components/shopList.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
 
@@ -40,25 +41,7 @@ class _TabContainerState extends State<TabContainer> {
             Expanded(
               child: TabBarView(
                 children: [
-                  Column(
-                    children: [
-                      ListTile(
-                        leading: Image.asset('assets/images/1.png'),
-                        title: const Text(
-                          'Nutripro Family Porridge Wimbi Mix',
-                        ),
-                        subtitle: const Text('Aisle 23'),
-                        trailing: const Text(
-                          'Ksh 255.00',
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 18.0, right: 18),
-                        child: Divider(),
-                      ),
-                    ],
-                  ),
+                  const ShopList(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

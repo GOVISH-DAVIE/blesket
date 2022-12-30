@@ -26,7 +26,7 @@ class Api implements ApiAbstract {
       {required String endpoint, Map<String, dynamic>? params}) async {
     logger.i("'$baseUrl$endpoint'");
     final prefs = await SharedPreferences.getInstance();
-    user = User.fromJson(jsonDecode(prefs.getString('creds')!));
+    user = User.fromJson(jsonDecode(prefs.getString('user')!));
 
     return _dio.get('$baseUrl$endpoint',
         queryParameters: params,

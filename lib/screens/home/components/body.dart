@@ -2,8 +2,10 @@ import 'package:blesket/components/navigation.dart';
 import 'package:blesket/screens/checkout/checkout.dart';
 import 'package:blesket/screens/home/components/cartCotainer.dart';
 import 'package:blesket/screens/home/components/tabviewContainer.dart';
+import 'package:blesket/state/product/productsprovider.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -13,6 +15,14 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    context.read<ProductProvider>().productList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +110,7 @@ class _BodyState extends State<Body> {
             Column(
               children: [
                 Container(
-                  height: 400,
+                  height: MediaQuery.of(context).size.height * .5,
                   width: MediaQuery.of(context).size.width / 2.1,
                   color: Colors.white,
                   child: const CartContainer(),
@@ -172,13 +182,13 @@ class _BodyState extends State<Body> {
             Column(
               children: [
                 Container(
-                  height: 400,
+                  height: MediaQuery.of(context).size.height * .6,
                   width: MediaQuery.of(context).size.width / (2.1),
                   color: Colors.white,
                   child: const TabContainer(),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Container(
                     decoration: BoxDecoration(
@@ -193,9 +203,6 @@ class _BodyState extends State<Body> {
                           'checkout',
                           style: TextStyle(color: Colors.white),
                         ))),
-                const SizedBox(
-                  height: 50,
-                )
               ],
             ),
           ],

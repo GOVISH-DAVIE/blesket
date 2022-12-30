@@ -231,6 +231,8 @@ class _BodyState extends State<Body> {
                                 });
                                 Navigator.pushNamed(context, Home.route);
                               }).catchError((onError) {
+                                addError(error: kInvalidCredentials);
+
                                 setState(() {
                                   busy = false;
                                 });
