@@ -13,6 +13,8 @@ abstract class ApiAbstract {
       {required String endpoint, Map<String, dynamic>? params});
   Future<Response> post(
       {required String endpoint, required Map<String, dynamic> params});
+  Future<Response> postNoHeaders(
+      {required String endpoint, required Map<String, dynamic> params});
 }
 
 class Api implements ApiAbstract {
@@ -57,5 +59,18 @@ class Api implements ApiAbstract {
     final prefs = await SharedPreferences.getInstance();
     user = User.fromJson(jsonDecode(prefs.getString('creds')!));
     logger.i("--refresh token =$user");
+  }
+
+  @override
+  Future<Response> postNoHeaders(
+      {required String endpoint, required Map<String, dynamic> params}) async {
+    logger.i('$baseUrl$endpoint');
+
+    return _dio.post('$baseUrl$endpoint',
+        data: FormData.fromMap(params),
+        options: Options(headers: <String, String>{
+          'OCS-APIRequest': 'true',
+          'accept': 'application/json'
+        }));
   }
 }

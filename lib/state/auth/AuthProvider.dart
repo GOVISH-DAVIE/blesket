@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:blesket/core/api/api.dart';
 import 'package:blesket/core/locator.dart';
+import 'package:blesket/models/user/user.dart';
 import 'package:blesket/state/auth/authEndpoints.dart';
+import 'package:blesket/utils/logger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,20 +27,21 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future login({password, username}) async {
+  Future login({password, email}) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('creds');
-    await prefs.setString(
-        'creds', jsonEncode({'username': username, 'password': password}));
-    _api.refeshAuth();
+    // await prefs.remove('creds');
 
-    return await _api.getHTTP(endpoint: AuthEndpoints.rooms).then((value) {
+    return await _api.postNoHeaders(
+        endpoint: AuthEndpoints.login,
+        params: {"email": email, "password": password}).then((value) {
+      logger.i(value);
       // locator.get<RoomProvider>().setrooms(Room.fromJson(value.data));
-
+      prefs.setString('user', jsonEncode(User.fromJson(value.data).toJson()));
       // return Room.fromJson(value.data);
+      return User.fromJson(value.data);
     }).catchError((onError) {
-      // logger.w(onError);
-      return throw false;
+      logger.w(onError);
+      // return throw false;
     });
   }
 }

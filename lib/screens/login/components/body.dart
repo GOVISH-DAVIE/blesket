@@ -1,5 +1,6 @@
 import 'package:blesket/components/FormErrors.dart';
 import 'package:blesket/components/buttons.dart';
+import 'package:blesket/screens/home/home.dart';
 import 'package:blesket/screens/otp/otp.dart';
 import 'package:blesket/state/auth/AuthProvider.dart';
 import 'package:blesket/utils/color.dart';
@@ -91,7 +92,7 @@ class _BodyState extends State<Body> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Text(
                   'By checking in you agree to the',
                   style: TextStyle(color: themeGrey),
@@ -140,14 +141,14 @@ class _BodyState extends State<Body> {
                     color: themeGreen,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
                   'Login to your account',
                   style: Theme.of(context).textTheme.headline5,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
@@ -210,19 +211,36 @@ class _BodyState extends State<Body> {
                 const SizedBox(
                   height: (10),
                 ),
-                SizedBox(
-                  height: 50,
-                  width: 250,
-                  child: FullWithButton(
-                    callback: () {
-                      if (formKey.currentState!.validate()) {
-                        formKey.currentState!.save();
-                      }
-                    },
-                    type: defaultButtonTheme,
-                    child: const Text('Check In'),
-                  ),
-                )
+                busy
+                    ? const CircularProgressIndicator()
+                    : SizedBox(
+                        height: 50,
+                        width: 250,
+                        child: FullWithButton(
+                          callback: () {
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
+                              setState(() {
+                                busy = true;
+                              });
+                              authProvider
+                                  .login(password: password, email: email)
+                                  .then((value) {
+                                setState(() {
+                                  busy = false;
+                                });
+                                Navigator.pushNamed(context, Home.route);
+                              }).catchError((onError) {
+                                setState(() {
+                                  busy = false;
+                                });
+                              });
+                            }
+                          },
+                          type: defaultButtonTheme,
+                          child: const Text('Check In'),
+                        ),
+                      )
               ],
             ),
           ),

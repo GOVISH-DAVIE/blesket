@@ -1,3 +1,3 @@
 class AuthEndpoints {
-  static String rooms = '/auth/jwt/create/';
+  static String login = 'auth/jwt/create/';
 }
