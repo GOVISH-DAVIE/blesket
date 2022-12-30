@@ -1,10 +1,14 @@
+import 'package:blesket/core/locator.dart';
+import 'package:blesket/core/providers.dart';
 import 'package:blesket/core/routes.dart';
 import 'package:blesket/screens/login/login.dart';
 import 'package:blesket/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  setupLocator();
+  runApp(MultiProvider(providers: providers, child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

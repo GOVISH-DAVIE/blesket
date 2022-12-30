@@ -1,7 +1,14 @@
+import 'package:blesket/components/FormErrors.dart';
+import 'package:blesket/components/buttons.dart';
 import 'package:blesket/screens/otp/otp.dart';
+import 'package:blesket/state/auth/AuthProvider.dart';
 import 'package:blesket/utils/color.dart';
+import 'package:blesket/utils/constants.dart';
+import 'package:blesket/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -14,8 +21,31 @@ class _BodyState extends State<Body> {
   final TextEditingController controller = TextEditingController();
   String initialCountry = 'NG';
   PhoneNumber number = PhoneNumber(isoCode: 'NG');
-
+  bool hidden = true;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  String? email;
+  String? password;
+  bool busy = false;
+
+  bool error = false;
+  final List<String> errors = [];
+
+  void addError({required String error}) {
+    if (!errors.contains(error)) {
+      setState(() {
+        errors.add(error);
+      });
+    }
+  }
+
+  void removeError({required String error}) {
+    if (errors.contains(error)) {
+      setState(() {
+        errors.remove(error);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,135 +118,113 @@ class _BodyState extends State<Body> {
 
   Column maincomponent(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      const SizedBox(
-        height: 30,
-      ),
-      SizedBox(
-        height: 56,
-        width: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/step.png',
-              height: 56,
-            ),
-            Image.asset(
-              'assets/images/st2.png',
-              height: 56,
-            ),
-          ],
-        ),
-      ),
-      Expanded(
-        child: Form(
-          key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(width: 350, child: TextFormField()),
-              SizedBox(width: 350, child: TextFormField()),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ...[1, 2, 3].map((e) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                            height: 40,
-                            width: 109,
-                            decoration: BoxDecoration(
-                                color: const Color(0xffEEEEEE),
-                                borderRadius: BorderRadius.circular(20)),
-                            child: TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  '$e',
-                                  style: const TextStyle(
-                                      fontSize: 24, color: Colors.black),
-                                ))),
-                      ))
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ...[4, 5, 6].map((e) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                            height: 40,
-                            width: 109,
-                            decoration: BoxDecoration(
-                                color: const Color(0xffEEEEEE),
-                                borderRadius: BorderRadius.circular(20)),
-                            child: TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  '$e',
-                                  style: const TextStyle(
-                                      fontSize: 24, color: Colors.black),
-                                ))),
-                      ))
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ...[7, 8, 9].map((e) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                            height: 40,
-                            width: 109,
-                            decoration: BoxDecoration(
-                                color: const Color(0xffEEEEEE),
-                                borderRadius: BorderRadius.circular(20)),
-                            child: TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  '$e',
-                                  style: const TextStyle(
-                                      fontSize: 24, color: Colors.black),
-                                ))),
-                      ))
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, OTP.route);
+      Consumer<AuthProvider>(
+        builder: (context, authProvider, child) => Expanded(
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 50,
+                ),
+                Container(
+                  height: 50,
+                  width: 50,
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: themeGreen.withOpacity(.2),
+                      borderRadius: BorderRadius.circular(25)),
+                  child: SvgPicture.asset(
+                    'assets/images/Vector.svg',
+                    color: themeGreen,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Login to your account',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * .6,
+                    child: TextFormField(
+                      onSaved: (newValue) => email = newValue,
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          removeError(error: kNullError);
+                        }
+                        return;
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          addError(error: kNullError);
+
+                          return "";
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                          hintText: 'Enter email address'),
+                    )),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * .6,
+                    child: TextFormField(
+                      onSaved: (newValue) => password = newValue,
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          removeError(error: kNullError);
+                        }
+                        return;
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          addError(error: kNullError);
+
+                          return "";
+                        }
+                        return null;
+                      },
+                      obscureText: hidden,
+                      decoration: InputDecoration(
+                          hintText: 'Password',
+                          suffixIcon: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  hidden = !hidden;
+                                });
+                              },
+                              child: const Icon(Icons.visibility_off))),
+                    )),
+                const SizedBox(
+                  height: (10),
+                ),
+                FormError(errors: errors),
+                const SizedBox(
+                  height: (10),
+                ),
+                SizedBox(
+                  height: 50,
+                  width: 250,
+                  child: FullWithButton(
+                    callback: () {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                      }
                     },
-                    child: Image.asset(
-                      'assets/images/correctbtn.png',
-                      height: 52,
-                    ),
+                    type: defaultButtonTheme,
+                    child: const Text('Check In'),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                        height: 52,
-                        width: 109,
-                        decoration: BoxDecoration(
-                            color: const Color(0xffEEEEEE),
-                            borderRadius: BorderRadius.circular(20)),
-                        child: TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              '0',
-                              style:
-                                  TextStyle(fontSize: 24, color: Colors.black),
-                            ))),
-                  ),
-                  Image.asset(
-                    'assets/images/cancel.png',
-                    height: 52,
-                  ),
-                ],
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       )

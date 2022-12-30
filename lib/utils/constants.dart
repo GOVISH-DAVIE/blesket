@@ -1,6 +1,6 @@
-const baseUrl = "https://bungevirtual.com";
+const baseUrl = "https://www.blesketke-live.org/api/v1/";
 const signalingUrl = "https://signaling.tk/standalone-signaling/spreed";
-const String kNullError = "Please Enter your Username";
+const String kNullError = "Please Enter your Email";
 const String kInvalidEmailError = "Please Enter Valid Email";
 const String kPassNullError = "Please Enter your password";
 const String kShortPassError = "Password is too short";
