@@ -28,58 +28,60 @@ class _BodyState extends State<Body> {
           height: 40,
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'Check in',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          SizedBox(
-            height: 560,
-            width: MediaQuery.of(context).size.width / 1.5,
-            child: Container(
-              // padding: EdgeInsetsGeometry(),
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  // borderRadius: BorderRadius.circular(1),
-                  border: Border(
-                      top: BorderSide(
-                    color: Color(0xffB0A8EC),
-                    width: 3.0,
-                  ))),
-              child: maincomponent(context),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Check in',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'By checking in you agree to the',
-                style: TextStyle(color: themeGrey),
+            const SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .7,
+              width: MediaQuery.of(context).size.width / 1.5,
+              child: Container(
+                // padding: EdgeInsetsGeometry(),
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    // borderRadius: BorderRadius.circular(1),
+                    border: Border(
+                        top: BorderSide(
+                      color: Color(0xffB0A8EC),
+                      width: 3.0,
+                    ))),
+                child: maincomponent(context),
               ),
-              Text(
-                'Terms of use',
-                style: TextStyle(color: themeGreen),
-              ),
-              Text(
-                ' of service and privacy policy',
-                style: TextStyle(color: themeGrey),
-              ),
-              Text(
-                ' privacy policy',
-                style: TextStyle(color: themeGreen),
-              )
-            ],
-          )
-        ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'By checking in you agree to the',
+                  style: TextStyle(color: themeGrey),
+                ),
+                Text(
+                  'Terms of use',
+                  style: TextStyle(color: themeGreen),
+                ),
+                Text(
+                  ' of service and privacy policy',
+                  style: TextStyle(color: themeGrey),
+                ),
+                Text(
+                  ' privacy policy',
+                  style: TextStyle(color: themeGreen),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -112,34 +114,10 @@ class _BodyState extends State<Body> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              SizedBox(width: 350, child: TextFormField()),
+              SizedBox(width: 350, child: TextFormField()),
               SizedBox(
-                width: 350,
-                child: InternationalPhoneNumberInput(
-                  onInputChanged: (PhoneNumber number) {
-                    print(number.phoneNumber);
-                  },
-                  onInputValidated: (bool value) {
-                    print(value);
-                  },
-                  selectorConfig: SelectorConfig(
-                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                  ),
-                  ignoreBlank: false,
-                  autoValidateMode: AutovalidateMode.disabled,
-                  selectorTextStyle: TextStyle(color: Colors.black),
-                  initialValue: number,
-                  textFieldController: controller,
-                  formatInput: false,
-                  keyboardType: TextInputType.numberWithOptions(
-                      signed: true, decimal: true),
-                  inputBorder: OutlineInputBorder(),
-                  onSaved: (PhoneNumber number) {
-                    print('On Saved: $number');
-                  },
-                ),
-              ),
-              SizedBox(
-                height: 30,
+                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -147,7 +125,7 @@ class _BodyState extends State<Body> {
                   ...[1, 2, 3].map((e) => Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                            height: 52,
+                            height: 40,
                             width: 109,
                             decoration: BoxDecoration(
                                 color: const Color(0xffEEEEEE),
@@ -168,7 +146,7 @@ class _BodyState extends State<Body> {
                   ...[4, 5, 6].map((e) => Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                            height: 52,
+                            height: 40,
                             width: 109,
                             decoration: BoxDecoration(
                                 color: const Color(0xffEEEEEE),
@@ -189,7 +167,7 @@ class _BodyState extends State<Body> {
                   ...[7, 8, 9].map((e) => Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                            height: 52,
+                            height: 40,
                             width: 109,
                             decoration: BoxDecoration(
                                 color: const Color(0xffEEEEEE),

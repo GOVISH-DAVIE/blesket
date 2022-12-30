@@ -1,6 +1,7 @@
 import 'package:blesket/components/navigation.dart';
 import 'package:blesket/screens/checkoutCard/checkoutcard.dart';
 import 'package:blesket/screens/checkoutMpesa/checkoutMpesa.dart';
+import 'package:blesket/screens/receiptfeedback/receiptfeedback.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
 
@@ -138,20 +139,25 @@ class _BodyState extends State<Body> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  Container(
-                    height: 40,
-                    width: 173,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        border: Border.all(color: themeGreen)),
-                    child: Center(
-                        child: Text(
-                      'Continue Shopping',
-                      style: TextStyle(color: themeGreen),
-                    )),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, ReceiptFeedback.route);
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 173,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40),
+                          border: Border.all(color: themeGreen)),
+                      child: Center(
+                          child: Text(
+                        'Continue Shopping',
+                        style: TextStyle(color: themeGreen),
+                      )),
+                    ),
                   )
                 ],
               ),

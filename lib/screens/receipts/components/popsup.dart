@@ -9,13 +9,13 @@ Future<void> dialogBuilder(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: const Text('Email receipt'),
-        content: Container(
+        content: SizedBox(
           height: 300,
           width: 500,
           child: Column(
             children: [
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
