@@ -1,4 +1,7 @@
+import 'package:blesket/screens/receipts/components/popsup.dart';
+import 'package:blesket/state/product/productendpoints.dart';
 import 'package:blesket/state/product/productsprovider.dart';
+import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -31,15 +34,29 @@ class _ShopListState extends State<ShopList> {
               child: Column(
                 children: [
                   ...?productProvider.productLists?.results!.map(
-                    (e) => ListTile(
-                      leading: Image.asset('assets/images/1.png'),
-                      title: Text(
-                        '${e.productName}',
-                      ),
-                      subtitle: const Text('Aisle 23'),
-                      trailing: const Text(
-                        'Ksh 255.00',
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                    (e) => SizedBox(
+                      width: MediaQuery.of(context).size.width / (2.1),
+                      child: ListTile(
+                        onTap: () {
+                          productDialogBuilder(context, e);
+                        },
+                        leading: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              // color: black,
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      ProductEndPoints.imageLink))),
+                        ),
+                        title: Text(
+                          '${e.productName}',
+                        ),
+                        subtitle: const Text('Aisle 23'),
+                        trailing: Text(
+                          'Ksh ${e.price}',
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
                       ),
                     ),
                   ),
