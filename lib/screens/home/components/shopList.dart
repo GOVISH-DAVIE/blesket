@@ -33,7 +33,7 @@ class _ShopListState extends State<ShopList> {
           : SingleChildScrollView(
               child: Column(
                 children: [
-                  ...?productProvider.productLists?.results!.map(
+                  ...?productProvider.productLists.map(
                     (e) => SizedBox(
                       width: MediaQuery.of(context).size.width / (2.1),
                       child: ListTile(

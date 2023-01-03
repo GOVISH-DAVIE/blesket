@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'result.dart';
+part of 'product_list.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Result _$ResultFromJson(Map<String, dynamic> json) {
-  return _Result.fromJson(json);
+ProductList _$ProductListFromJson(Map<String, dynamic> json) {
+  return _ProductList.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Result {
+mixin _$ProductList {
   int? get id => throw _privateConstructorUsedError;
   Owner? get owner => throw _privateConstructorUsedError;
   @JsonKey(name: 'product_name')
@@ -40,13 +40,15 @@ mixin _$Result {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ResultCopyWith<Result> get copyWith => throw _privateConstructorUsedError;
+  $ProductListCopyWith<ProductList> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ResultCopyWith<$Res> {
-  factory $ResultCopyWith(Result value, $Res Function(Result) then) =
-      _$ResultCopyWithImpl<$Res, Result>;
+abstract class $ProductListCopyWith<$Res> {
+  factory $ProductListCopyWith(
+          ProductList value, $Res Function(ProductList) then) =
+      _$ProductListCopyWithImpl<$Res, ProductList>;
   @useResult
   $Res call(
       {int? id,
@@ -67,9 +69,9 @@ abstract class $ResultCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ResultCopyWithImpl<$Res, $Val extends Result>
-    implements $ResultCopyWith<$Res> {
-  _$ResultCopyWithImpl(this._value, this._then);
+class _$ProductListCopyWithImpl<$Res, $Val extends ProductList>
+    implements $ProductListCopyWith<$Res> {
+  _$ProductListCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -163,9 +165,11 @@ class _$ResultCopyWithImpl<$Res, $Val extends Result>
 }
 
 /// @nodoc
-abstract class _$$_ResultCopyWith<$Res> implements $ResultCopyWith<$Res> {
-  factory _$$_ResultCopyWith(_$_Result value, $Res Function(_$_Result) then) =
-      __$$_ResultCopyWithImpl<$Res>;
+abstract class _$$_ProductListCopyWith<$Res>
+    implements $ProductListCopyWith<$Res> {
+  factory _$$_ProductListCopyWith(
+          _$_ProductList value, $Res Function(_$_ProductList) then) =
+      __$$_ProductListCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -188,10 +192,11 @@ abstract class _$$_ResultCopyWith<$Res> implements $ResultCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ResultCopyWithImpl<$Res>
-    extends _$ResultCopyWithImpl<$Res, _$_Result>
-    implements _$$_ResultCopyWith<$Res> {
-  __$$_ResultCopyWithImpl(_$_Result _value, $Res Function(_$_Result) _then)
+class __$$_ProductListCopyWithImpl<$Res>
+    extends _$ProductListCopyWithImpl<$Res, _$_ProductList>
+    implements _$$_ProductListCopyWith<$Res> {
+  __$$_ProductListCopyWithImpl(
+      _$_ProductList _value, $Res Function(_$_ProductList) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -211,7 +216,7 @@ class __$$_ResultCopyWithImpl<$Res>
     Object? createdDate = freezed,
     Object? modifiedDate = freezed,
   }) {
-    return _then(_$_Result(
+    return _then(_$_ProductList(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -270,8 +275,8 @@ class __$$_ResultCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Result implements _Result {
-  _$_Result(
+class _$_ProductList implements _ProductList {
+  _$_ProductList(
       {this.id,
       this.owner,
       @JsonKey(name: 'product_name') this.productName,
@@ -286,8 +291,8 @@ class _$_Result implements _Result {
       @JsonKey(name: 'created_date') this.createdDate,
       @JsonKey(name: 'modified_date') this.modifiedDate});
 
-  factory _$_Result.fromJson(Map<String, dynamic> json) =>
-      _$$_ResultFromJson(json);
+  factory _$_ProductList.fromJson(Map<String, dynamic> json) =>
+      _$$_ProductListFromJson(json);
 
   @override
   final int? id;
@@ -322,14 +327,14 @@ class _$_Result implements _Result {
 
   @override
   String toString() {
-    return 'Result(id: $id, owner: $owner, productName: $productName, slug: $slug, description: $description, isbn: $isbn, price: $price, images: $images, stock: $stock, isAvailable: $isAvailable, category: $category, createdDate: $createdDate, modifiedDate: $modifiedDate)';
+    return 'ProductList(id: $id, owner: $owner, productName: $productName, slug: $slug, description: $description, isbn: $isbn, price: $price, images: $images, stock: $stock, isAvailable: $isAvailable, category: $category, createdDate: $createdDate, modifiedDate: $modifiedDate)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Result &&
+            other is _$_ProductList &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.owner, owner) || other.owner == owner) &&
             (identical(other.productName, productName) ||
@@ -372,19 +377,19 @@ class _$_Result implements _Result {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ResultCopyWith<_$_Result> get copyWith =>
-      __$$_ResultCopyWithImpl<_$_Result>(this, _$identity);
+  _$$_ProductListCopyWith<_$_ProductList> get copyWith =>
+      __$$_ProductListCopyWithImpl<_$_ProductList>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ResultToJson(
+    return _$$_ProductListToJson(
       this,
     );
   }
 }
 
-abstract class _Result implements Result {
-  factory _Result(
+abstract class _ProductList implements ProductList {
+  factory _ProductList(
           {final int? id,
           final Owner? owner,
           @JsonKey(name: 'product_name') final String? productName,
@@ -398,9 +403,10 @@ abstract class _Result implements Result {
           final int? category,
           @JsonKey(name: 'created_date') final DateTime? createdDate,
           @JsonKey(name: 'modified_date') final DateTime? modifiedDate}) =
-      _$_Result;
+      _$_ProductList;
 
-  factory _Result.fromJson(Map<String, dynamic> json) = _$_Result.fromJson;
+  factory _ProductList.fromJson(Map<String, dynamic> json) =
+      _$_ProductList.fromJson;
 
   @override
   int? get id;
@@ -434,6 +440,6 @@ abstract class _Result implements Result {
   DateTime? get modifiedDate;
   @override
   @JsonKey(ignore: true)
-  _$$_ResultCopyWith<_$_Result> get copyWith =>
+  _$$_ProductListCopyWith<_$_ProductList> get copyWith =>
       throw _privateConstructorUsedError;
 }

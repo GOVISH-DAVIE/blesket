@@ -1,6 +1,7 @@
 import 'package:blesket/components/navigation.dart';
 import 'package:blesket/screens/checkout/checkout.dart';
 import 'package:blesket/screens/home/components/cartCotainer.dart';
+import 'package:blesket/screens/home/components/search.dart';
 import 'package:blesket/screens/home/components/tabviewContainer.dart';
 import 'package:blesket/state/product/productsprovider.dart';
 import 'package:blesket/utils/color.dart';
@@ -23,6 +24,8 @@ class _BodyState extends State<Body> {
     context.read<ProductProvider>().productList();
   }
 
+  String activeTab = 'cartlist';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,40 +40,96 @@ class _BodyState extends State<Body> {
             const SizedBox(
               width: 100,
             ),
-            Row(
-              children: [
-                Container(
-                  width: 79,
-                  height: 36,
-                  decoration: const BoxDecoration(color: Colors.white),
-                  child: const Center(
-                      child: Text(
-                    'Cartlist',
-                    style: TextStyle(fontSize: 16),
-                  )),
-                ),
-                Container(
-                  width: 79,
-                  height: 36,
-                  decoration: BoxDecoration(color: themeGrey.withOpacity(.2)),
-                  child: const Center(
-                      child: Text(
-                    'Storemap',
-                    style: TextStyle(fontSize: 16),
-                  )),
-                ),
-                Container(
-                  width: 79,
-                  height: 36,
-                  decoration: BoxDecoration(color: themeGrey.withOpacity(.2)),
-                  child: const Center(
-                      child: Text(
-                    'search',
-                    style: TextStyle(fontSize: 16),
-                  )),
-                ),
-              ],
-            ),
+            activeTab == 'cartlist'
+                ? Row(children: [
+                    Container(
+                      width: 79,
+                      height: 36,
+                      decoration: const BoxDecoration(color: Colors.white),
+                      child: const Center(
+                          child: Text(
+                        'Cartlist',
+                        style: TextStyle(fontSize: 16),
+                      )),
+                    ),
+                    Container(
+                      width: 79,
+                      height: 36,
+                      decoration:
+                          BoxDecoration(color: themeGrey.withOpacity(.2)),
+                      child: const Center(
+                          child: Text(
+                        'Storemap',
+                        style: TextStyle(fontSize: 16),
+                      )),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          activeTab = 'search';
+                        });
+                      },
+                      child: Container(
+                        width: 79,
+                        height: 36,
+                        decoration:
+                            BoxDecoration(color: themeGrey.withOpacity(.2)),
+                        child: const Center(
+                            child: Text(
+                          'search',
+                          style: TextStyle(fontSize: 16),
+                        )),
+                      ),
+                    ),
+                  ])
+                : Row(children: [
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          activeTab = 'cartlist';
+                        });
+                      },
+                      child: Container(
+                        width: 79,
+                        height: 36,
+                        decoration:
+                            BoxDecoration(color: themeGrey.withOpacity(.2)),
+                        child: const Center(
+                            child: Text(
+                          'Cartlist',
+                          style: TextStyle(fontSize: 16),
+                        )),
+                      ),
+                    ),
+                    Container(
+                      width: 79,
+                      height: 36,
+                      decoration:
+                          BoxDecoration(color: themeGrey.withOpacity(.2)),
+                      child: const Center(
+                          child: Text(
+                        'Storemap',
+                        style: TextStyle(fontSize: 16),
+                      )),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          activeTab = 'search';
+                        });
+                      },
+                      child: Container(
+                        width: 79,
+                        height: 36,
+                        decoration: const BoxDecoration(color: Colors.white),
+                        child: const Center(
+                            child: Text(
+                          'search',
+                          style: TextStyle(fontSize: 16),
+                        )),
+                      ),
+                    ),
+                  ]),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -113,7 +172,13 @@ class _BodyState extends State<Body> {
                   height: MediaQuery.of(context).size.height * .5,
                   width: MediaQuery.of(context).size.width / 2.1,
                   color: Colors.white,
-                  child: const CartContainer(),
+                  child: activeTab == "cartlist"
+                      ? CartContainer()
+                      : SearchPage(goToCart: () {
+                          setState(() {
+                            activeTab = 'cartlist';
+                          });
+                        }),
                 ),
                 const SizedBox(
                   height: 20,

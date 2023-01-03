@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'result.dart';
+part of 'product_list.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Result _$$_ResultFromJson(Map<String, dynamic> json) => _$_Result(
+_$_ProductList _$$_ProductListFromJson(Map<String, dynamic> json) =>
+    _$_ProductList(
       id: json['id'] as int?,
       owner: json['owner'] == null
           ? null
@@ -28,7 +29,8 @@ _$_Result _$$_ResultFromJson(Map<String, dynamic> json) => _$_Result(
           : DateTime.parse(json['modified_date'] as String),
     );
 
-Map<String, dynamic> _$$_ResultToJson(_$_Result instance) => <String, dynamic>{
+Map<String, dynamic> _$$_ProductListToJson(_$_ProductList instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'owner': instance.owner,
       'product_name': instance.productName,

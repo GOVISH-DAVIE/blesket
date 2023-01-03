@@ -1,4 +1,4 @@
-import 'package:blesket/models/product_lists/result.dart';
+import 'package:blesket/models/product_list/product_list.dart';
 import 'package:blesket/screens/receipts/receipts.dart';
 import 'package:blesket/state/product/productendpoints.dart';
 import 'package:blesket/state/product/productsprovider.dart';
@@ -106,7 +106,7 @@ Future<void> dialogBuilder(BuildContext context) {
   );
 }
 
-Future<void> productDialogBuilder(BuildContext context, Result e) {
+Future<void> productDialogBuilder(BuildContext context, ProductList e) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -198,7 +198,7 @@ Future<void> productDialogBuilder(BuildContext context, Result e) {
                     SingleChildScrollView(
                   child: Column(
                     children: [
-                      ...?productProvider.productLists?.results!.map(
+                      ...?productProvider.productLists.map(
                         (e) => SizedBox(
                           width: MediaQuery.of(context).size.width / (2.1),
                           child: ListTile(
