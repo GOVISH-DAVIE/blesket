@@ -31,7 +31,7 @@ class _CartContainerState extends State<CartContainer> {
               child: SingleChildScrollView(
             child: Column(
               children: [
-                ...?productProvider.cart.map(
+                ...productProvider.cart.map(
                   (e) => SizedBox(
                     width: MediaQuery.of(context).size.width / (2.1),
                     child: ListTile(

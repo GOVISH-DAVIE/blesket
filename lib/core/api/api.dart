@@ -42,7 +42,7 @@ class Api implements ApiAbstract {
       {required String endpoint, required Map<String, dynamic> params}) async {
     logger.i('$baseUrl$endpoint');
     final prefs = await SharedPreferences.getInstance();
-    user = User.fromJson(jsonDecode(prefs.getString('creds')!));
+    user = User.fromJson(jsonDecode(prefs.getString('user')!));
 
     return _dio.post('$baseUrl$endpoint',
         data: FormData.fromMap(params),

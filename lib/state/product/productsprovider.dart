@@ -11,6 +11,8 @@ class ProductProvider extends ChangeNotifier {
   List<ProductList> get productLists => _productLists;
   List<ProductList> _cart = [];
   List<ProductList> get cart => _cart;
+  List<ProductList> _searchProducts = [];
+  List<ProductList> get searchProducts => _searchProducts;
 
   bool busy = true;
   productList() async {
@@ -25,16 +27,38 @@ class ProductProvider extends ChangeNotifier {
     });
   }
 
-  addToCartProduct() async {
-    await _api.post(endpoint: ProductEndPoints.addToCart, params: {
-      "quantity": 1,
-      "variations": [1],
-      "is_active": true
-    }).then((value) {
-      logger.i(value);
+  cartList() async {
+    await _api.getHTTP(endpoint: ProductEndPoints.cartList).then((value) {
+      logger.i("cart List $value");
+    });
+  }
+
+  Future addToCartProduct({required ProductList productItem}) async {
+    logger.i(productItem);
+    return await _api.post(
+        endpoint: "${ProductEndPoints.addToCart}${productItem.slug}/",
+        params: {
+          "quantity": 1,
+          "variations": [1],
+          "is_active": true
+        }).then((value) {
+      logger.i("---add to Cart ${value}");
       // _productLists = ProductLists.fromJson(value.data);
       // busy = false;
       // notifyListeners();
+      return true;
+    }).catchError((onError) {
+      logger.i(onError);
+      return throw false;
     });
+  }
+
+  searchProduct({required String value}) {
+    logger.i("--provider ${value}");
+    _searchProducts = productLists
+        .where((element) =>
+            element.productName!.toLowerCase().contains(value.toLowerCase()))
+        .toList();
+    notifyListeners();
   }
 }

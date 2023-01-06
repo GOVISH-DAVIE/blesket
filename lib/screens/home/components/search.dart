@@ -1,7 +1,11 @@
+import 'package:blesket/components/buttons.dart';
 import 'package:blesket/models/product_list/product_list.dart';
+import 'package:blesket/screens/receipts/components/popsup.dart';
+import 'package:blesket/state/product/productendpoints.dart';
 
 import 'package:blesket/state/product/productsprovider.dart';
-import 'package:blesket/utils/logger.dart';
+import 'package:blesket/utils/color.dart';
+import 'package:blesket/utils/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,13 +65,13 @@ class _SearchPageState extends State<SearchPage> {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
       print(barcodeScanRes);
-      logger
-          .i(Provider.of<ProductProvider>(context, listen: false).productLists);
+      // logger
+      //     .i(Provider.of<ProductProvider>(context, listen: false).productLists);
 
-      // Provider.of<ProductProvider>(context, listen: false).productLists!
-      logger.w(Provider.of<ProductProvider>(context, listen: false)
-          .productLists
-          .where((element) => element.isbn == barcodeScanRes));
+      // // Provider.of<ProductProvider>(context, listen: false).productLists!
+      // logger.w(Provider.of<ProductProvider>(context, listen: false)
+      //     .productLists
+      //     .where((element) => element.isbn == barcodeScanRes));
       Provider.of<ProductProvider>(context, listen: false)
           .productLists
           .forEach((element) {
@@ -98,18 +102,94 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Builder(builder: (BuildContext context) {
-      return Container(
-          alignment: Alignment.center,
-          child: Flex(
-              direction: Axis.vertical,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ElevatedButton(
-                    onPressed: () => scanBarcodeNormal(),
-                    child: Text('Start barcode scan')),
-                Text('Scan result : $_scanBarcode\n check the cart',
-                    style: TextStyle(fontSize: 20))
-              ]));
+      return Consumer<ProductProvider>(
+        builder: (context, productProvider, child) => Container(
+            alignment: Alignment.center,
+            color: Colors.transparent,
+            child: Flex(
+                direction: Axis.vertical,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: (MediaQuery.of(context).size.width / 2.1) * .7,
+                        child: TextFormField(
+                          onChanged: (value) {
+                            productProvider.searchProduct(value: value);
+                          },
+                          decoration: const InputDecoration(
+                              fillColor: Colors.white,
+                              hintText: 'Search for product',
+                              prefixIcon: Icon(Icons.search)),
+                        ),
+                      ),
+                      Expanded(
+                          child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FloatingActionButton.extended(
+                            backgroundColor: themeGrey,
+                            icon: const Icon(Icons.qr_code_scanner),
+                            onPressed: () => scanBarcodeNormal(),
+                            label: Text('Scan Bar Code')),
+                      )
+                          //      IconButton(
+                          //   onPressed: () => scanBarcodeNormal(),
+                          //   icon: Icon(Icons.qr_code_scanner_sharp),
+                          // )
+                          )
+                    ],
+                  ),
+                  Expanded(
+                      child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ...productProvider.searchProducts.map(
+                          (e) => Container(
+                            margin: const EdgeInsets.all(3),
+                            color: Colors.white,
+                            width: MediaQuery.of(context).size.width / (2.1),
+                            child: ListTile(
+                              onTap: () {
+                                productDialogBuilder(context, e);
+                              },
+                              leading: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                    // color: black,
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            ProductEndPoints.imageLink))),
+                              ),
+                              title: Text(
+                                '${e.productName}',
+                              ),
+                              subtitle: Text(
+                                "KES ${e.price}",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              trailing: FullWithButton(
+                                callback: () {
+                                  productProvider
+                                      .addToCartProduct(productItem: e)
+                                      .then((value) {
+                                    logger.i("respomse  ${value}");
+                                    productProvider.cartList();
+                                    widget.goToCart();
+                                  });
+                                },
+                                type: defaultButtonTheme,
+                                child: Text('Add to cart'),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ))
+                ])),
+      );
     }));
   }
 }
