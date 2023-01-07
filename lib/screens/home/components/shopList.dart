@@ -46,8 +46,7 @@ class _ShopListState extends State<ShopList> {
                           decoration: BoxDecoration(
                               // color: black,
                               image: DecorationImage(
-                                  image: NetworkImage(
-                                      ProductEndPoints.imageLink))),
+                                  image: NetworkImage(e.images!))),
                         ),
                         title: Text(
                           '${e.productName}',

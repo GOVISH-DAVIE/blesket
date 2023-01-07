@@ -120,7 +120,7 @@ Future<void> productDialogBuilder(BuildContext context, ProductList e) {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Image.network(
-                  ProductEndPoints.imageLink,
+                  e.images!,
                   height: MediaQuery.of(context).size.height * .2,
                 ),
               ),

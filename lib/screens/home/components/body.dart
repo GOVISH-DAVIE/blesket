@@ -184,15 +184,17 @@ class _BodyState extends State<Body> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2.1,
-                    height: 30,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text('Subtotal'),
-                        Text('Ksh 3872.00'),
-                      ],
+                  Consumer<ProductProvider>(
+                    builder: (context, productProvider, child) => SizedBox(
+                      width: MediaQuery.of(context).size.width / 2.1,
+                      height: 30,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Subtotal'),
+                          Text('Ksh ${productProvider.total}'),
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -219,14 +221,14 @@ class _BodyState extends State<Body> {
                               style: TextStyle(fontWeight: FontWeight.w700),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(left: 15.0),
                               child: Container(
-                                height: 40,
+                                height: 60,
                                 width: 124,
                                 decoration: BoxDecoration(
                                     border: Border.all(color: themeGreen),
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Center(
+                                    borderRadius: BorderRadius.circular(40)),
+                                child: const Center(
                                   child: Text(
                                     'Saved Ksh 100.00',
                                     style: TextStyle(color: themeGreen),
@@ -236,8 +238,8 @@ class _BodyState extends State<Body> {
                             ),
                           ],
                         ),
-                        const Text(
-                          'Ksh 3872.00',
+                        Text(
+                          'Ksh ${context.watch<ProductProvider>().total} ',
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                       ],

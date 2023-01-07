@@ -1,8 +1,10 @@
 // ignore: file_names
 
+import 'package:blesket/components/buttons.dart';
 import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/state/product/productendpoints.dart';
 import 'package:blesket/state/product/productsprovider.dart';
+import 'package:blesket/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,41 +31,59 @@ class _CartContainerState extends State<CartContainer> {
           ),
           Expanded(
               child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ...productProvider.cart.map(
-                  (e) => SizedBox(
-                    width: MediaQuery.of(context).size.width / (2.1),
-                    child: ListTile(
-                      onTap: () {
-                        productDialogBuilder(context, e);
-                      },
-                      leading: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            // color: black,
-                            image: DecorationImage(
-                                image:
-                                    NetworkImage(ProductEndPoints.imageLink))),
+            child: context.watch<ProductProvider>().cartLoading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Column(
+                    children: [
+                      ...?productProvider.cartItems?.myCart?.map(
+                        (e) => SizedBox(
+                          width: MediaQuery.of(context).size.width / (2.1),
+                          child: ListTile(
+                            onTap: () {
+                              productDialogBuilder(
+                                  context,
+                                  productProvider.productLists
+                                      .where(
+                                          (element) => element.id == e.product)
+                                      .first);
+                            },
+                            leading: Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  // color: black,
+                                  image: DecorationImage(
+                                      image: NetworkImage(productProvider
+                                          .productLists
+                                          .where((element) =>
+                                              element.id == e.product)
+                                          .first
+                                          .images!))),
+                            ),
+                            title: Text(
+                              '${productProvider.productLists.where((element) => element.id == e.product).first.productName}',
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                            subtitle: Text(
+                              ' Quantity : ${e.quantity}',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            trailing: Text(
+                              'Ksh ${productProvider.productLists.where((element) => element.id == e.product).first.price! * e.quantity!}',
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ),
                       ),
-                      title: Text(
-                        '${e.productName}',
+                      const Padding(
+                        padding: EdgeInsets.only(left: 18.0, right: 18),
+                        child: Divider(),
                       ),
-                      // subtitle: const Text('Aisle 23'),
-                      trailing: Text(
-                        'Ksh ${e.price}',
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                    ),
+                    ],
                   ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 18.0, right: 18),
-                  child: Divider(),
-                ),
-              ],
-            ),
           ))
         ],
       ),

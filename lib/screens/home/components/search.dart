@@ -64,7 +64,7 @@ class _SearchPageState extends State<SearchPage> {
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      print(barcodeScanRes);
+      print("barcode res ${barcodeScanRes}");
       // logger
       //     .i(Provider.of<ProductProvider>(context, listen: false).productLists);
 
@@ -72,17 +72,18 @@ class _SearchPageState extends State<SearchPage> {
       // logger.w(Provider.of<ProductProvider>(context, listen: false)
       //     .productLists
       //     .where((element) => element.isbn == barcodeScanRes));
+      // ignore: use_build_context_synchronously
       Provider.of<ProductProvider>(context, listen: false)
           .productLists
           .forEach((element) {
-        if (barcodeScanRes == element.isbn) {
+        if (/*barcodeScanRes*/ element
+            .isbn == /* "element.isbn"*/ "6161113360345") {
           Provider.of<ProductProvider>(context, listen: false)
-              .cart
-              .add(element);
+              .addtocartBarCode(productItem: element);
           setState(() {
             _result = element;
           });
-          widget.goToCart();
+          // widget.goToCart();
         }
       });
     } on PlatformException {
@@ -142,51 +143,58 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   Expanded(
                       child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        ...productProvider.searchProducts.map(
-                          (e) => Container(
-                            margin: const EdgeInsets.all(3),
-                            color: Colors.white,
-                            width: MediaQuery.of(context).size.width / (2.1),
-                            child: ListTile(
-                              onTap: () {
-                                productDialogBuilder(context, e);
-                              },
-                              leading: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                    // color: black,
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            ProductEndPoints.imageLink))),
+                    child: context.watch<ProductProvider>().addtoCartBusy
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Column(
+                            children: [
+                              ...productProvider.searchProducts.map(
+                                (e) => Container(
+                                  margin: const EdgeInsets.all(3),
+                                  color: Colors.white,
+                                  width:
+                                      MediaQuery.of(context).size.width / (2.1),
+                                  child: ListTile(
+                                    onTap: () {
+                                      productDialogBuilder(context, e);
+                                    },
+                                    leading: Container(
+                                      height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                          // color: black,
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  ProductEndPoints.imageLink))),
+                                    ),
+                                    title: Text(
+                                      '${e.productName}',
+                                    ),
+                                    subtitle: Text(
+                                      "KES ${e.price}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ),
+                                    trailing: FullWithButton(
+                                      callback: () {
+                                        productProvider
+                                            .addToCartProduct(productItem: e)
+                                            .then((value) {
+                                          logger.i("respomse  ${value}");
+                                          productProvider.cartList();
+                                          widget.goToCart();
+                                        });
+                                      },
+                                      type: defaultButtonTheme,
+                                      child: Text('Add to cart'),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              title: Text(
-                                '${e.productName}',
-                              ),
-                              subtitle: Text(
-                                "KES ${e.price}",
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                              trailing: FullWithButton(
-                                callback: () {
-                                  productProvider
-                                      .addToCartProduct(productItem: e)
-                                      .then((value) {
-                                    logger.i("respomse  ${value}");
-                                    productProvider.cartList();
-                                    widget.goToCart();
-                                  });
-                                },
-                                type: defaultButtonTheme,
-                                child: Text('Add to cart'),
-                              ),
-                            ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
                   ))
                 ])),
       );
