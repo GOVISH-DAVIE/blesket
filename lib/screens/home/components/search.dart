@@ -79,6 +79,9 @@ class _SearchPageState extends State<SearchPage> {
           setState(() {
             _result = element;
           });
+
+          productDialogBuilder(context, element, true);
+
           widget.goToCart();
         }
       });
@@ -128,7 +131,7 @@ class _SearchPageState extends State<SearchPage> {
                             backgroundColor: themeGrey,
                             icon: const Icon(Icons.qr_code_scanner),
                             onPressed: () => scanBarcodeNormal(),
-                            label: Text('Scan Bar Code')),
+                            label: const Text('Scan Bar Code')),
                       )
                           //      IconButton(
                           //   onPressed: () => scanBarcodeNormal(),
@@ -153,7 +156,7 @@ class _SearchPageState extends State<SearchPage> {
                                       MediaQuery.of(context).size.width / (2.1),
                                   child: ListTile(
                                     onTap: () {
-                                      productDialogBuilder(context, e);
+                                      productDialogBuilder(context, e, false);
                                     },
                                     leading: Container(
                                       height: 50,

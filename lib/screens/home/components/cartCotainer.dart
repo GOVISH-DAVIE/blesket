@@ -48,7 +48,8 @@ class _CartContainerState extends State<CartContainer> {
                                   productProvider.productLists
                                       .where(
                                           (element) => element.id == e.product)
-                                      .first);
+                                      .first,
+                                  true);
                             },
                             child: Row(
                               children: [

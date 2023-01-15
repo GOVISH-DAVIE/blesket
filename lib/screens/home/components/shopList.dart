@@ -39,7 +39,7 @@ class _ShopListState extends State<ShopList> {
                       height: 150,
                       child: InkWell(
                         onTap: () {
-                          productDialogBuilder(context, e);
+                          productDialogBuilder(context, e, false);
                         },
                         child: Row(
                           children: [
