@@ -77,6 +77,9 @@ class ProductProvider extends ChangeNotifier {
       }
       _cartLoading = false;
       notifyListeners();
+    }).catchError((onError) {
+      _cartLoading = false;
+      notifyListeners();
     });
   }
 
@@ -100,6 +103,8 @@ class ProductProvider extends ChangeNotifier {
       return true;
     }).catchError((onError) {
       logger.i(onError);
+      _addtoCartBusy = false;
+      notifyListeners();
       return throw false;
     });
   }
@@ -116,5 +121,63 @@ class ProductProvider extends ChangeNotifier {
   addtocartBarCode({required ProductList productItem}) {
     logger.w("--barcode  ${productItem.productName}");
     addToCartProduct(productItem: productItem);
+  }
+
+  me() async {
+    await _api.getHTTP(endpoint: ProductEndPoints.me).then((value) {
+      logger.i("--me $value");
+      // _cartItems = CartList.fromJson(value.data);
+    }).catchError((onError) {
+      logger.w(onError);
+    });
+  }
+
+  makeOrder({required String pNumber}) async {
+    logger.i('--number $pNumber');
+    _addtoCartBusy = true;
+    notifyListeners();
+
+    return await _api.post(
+        endpoint: "${ProductEndPoints.makePayment}20230107125817jakey/",
+        params: {
+          "first_name": "Jacob",
+          "last_name": "Miru",
+          "phone": pNumber,
+          "email": "gakungajake@gmail.com",
+          "address_line_1": "Roysambu",
+          "address_line_2": "Lumumba drive",
+          "country": "Kenya",
+          "state": "Nairobi",
+          "city": "Nairobi",
+          "order_note": "Best"
+        }).then((value) {
+      logger.w('--making order ${value.data}');
+      _addtoCartBusy = true;
+      notifyListeners();
+    }).catchError((onError) {
+      _addtoCartBusy = true;
+      notifyListeners();
+      logger.i(onError);
+    });
+    // return await _api.post(endpoint: "${ProductEndPoints.makeOrder}", params: {
+    //   "first_name": "Jacob",
+    //   "last_name": "Miru",
+    //   "phone": pNumber,
+    //   "email": "gakungajake@gmail.com",
+    //   "address_line_1": "Roysambu",
+    //   "address_line_2": "Lumumba drive",
+    //   "country": "Kenya",
+    //   "state": "Nairobi",
+    //   "city": "Nairobi",
+    //   "order_note": "Best"
+    // }).then((value) {
+    //   logger.w('--making order ${value.data}');
+    //   _addtoCartBusy = true;
+    //   notifyListeners();
+    // }).catchError((onError) {
+    //   _addtoCartBusy = true;
+    //   notifyListeners();
+    //   logger.i(onError);
+    // });
   }
 }

@@ -22,6 +22,7 @@ class _BodyState extends State<Body> {
     super.initState();
 
     context.read<ProductProvider>().productList();
+    context.read<ProductProvider>().cartList();
   }
 
   String activeTab = 'cartlist';

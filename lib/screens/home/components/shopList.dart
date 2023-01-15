@@ -36,25 +36,47 @@ class _ShopListState extends State<ShopList> {
                   ...?productProvider.productLists.map(
                     (e) => SizedBox(
                       width: MediaQuery.of(context).size.width / (2.1),
-                      child: ListTile(
+                      height: 150,
+                      child: InkWell(
                         onTap: () {
                           productDialogBuilder(context, e);
                         },
-                        leading: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              // color: black,
-                              image: DecorationImage(
-                                  image: NetworkImage(e.images!))),
-                        ),
-                        title: Text(
-                          '${e.productName}',
-                        ),
-                        subtitle: const Text('Aisle 23'),
-                        trailing: Text(
-                          'Ksh ${e.price}',
-                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Image.network(
+                                width: 100,
+                                height: 200,
+                                fit: BoxFit.cover,
+                                e.images!,
+                              ),
+                            ),
+                            Expanded(
+                                child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${e.productName}',
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                                Text(
+                                  'Aisle 23',
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                ),
+                              ],
+                            )),
+                            SizedBox(
+                              width: 100,
+                              child: Text(
+                                'Ksh ${e.price}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ),

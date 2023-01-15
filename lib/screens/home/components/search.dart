@@ -69,21 +69,17 @@ class _SearchPageState extends State<SearchPage> {
       //     .i(Provider.of<ProductProvider>(context, listen: false).productLists);
 
       // // Provider.of<ProductProvider>(context, listen: false).productLists!
-      // logger.w(Provider.of<ProductProvider>(context, listen: false)
-      //     .productLists
-      //     .where((element) => element.isbn == barcodeScanRes));
       // ignore: use_build_context_synchronously
       Provider.of<ProductProvider>(context, listen: false)
           .productLists
           .forEach((element) {
-        if (/*barcodeScanRes*/ element
-            .isbn == /* "element.isbn"*/ "6161113360345") {
+        if (barcodeScanRes == element.isbn) {
           Provider.of<ProductProvider>(context, listen: false)
               .addtocartBarCode(productItem: element);
           setState(() {
             _result = element;
           });
-          // widget.goToCart();
+          widget.goToCart();
         }
       });
     } on PlatformException {

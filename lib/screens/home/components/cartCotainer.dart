@@ -40,7 +40,8 @@ class _CartContainerState extends State<CartContainer> {
                       ...?productProvider.cartItems?.myCart?.map(
                         (e) => SizedBox(
                           width: MediaQuery.of(context).size.width / (2.1),
-                          child: ListTile(
+                          height: 150,
+                          child: InkWell(
                             onTap: () {
                               productDialogBuilder(
                                   context,
@@ -49,31 +50,48 @@ class _CartContainerState extends State<CartContainer> {
                                           (element) => element.id == e.product)
                                       .first);
                             },
-                            leading: Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                  // color: black,
-                                  image: DecorationImage(
-                                      image: NetworkImage(productProvider
-                                          .productLists
-                                          .where((element) =>
-                                              element.id == e.product)
-                                          .first
-                                          .images!))),
-                            ),
-                            title: Text(
-                              '${productProvider.productLists.where((element) => element.id == e.product).first.productName}',
-                              style: Theme.of(context).textTheme.bodyLarge,
-                            ),
-                            subtitle: Text(
-                              ' Quantity : ${e.quantity}',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            trailing: Text(
-                              'Ksh ${productProvider.productLists.where((element) => element.id == e.product).first.price! * e.quantity!}',
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w600),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: Image.network(
+                                    width: 100,
+                                    height: 200,
+                                    fit: BoxFit.cover,
+                                    productProvider.productLists
+                                        .where((element) =>
+                                            element.id == e.product)
+                                        .first
+                                        .images!,
+                                  ),
+                                ),
+                                Expanded(
+                                    child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${productProvider.productLists.where((element) => element.id == e.product).first.productName}',
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                    Text(
+                                      ' Quantity : ${e.quantity}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    ),
+                                  ],
+                                )),
+                                SizedBox(
+                                  width: 100,
+                                  child: Text(
+                                    'Ksh ${productProvider.productLists.where((element) => element.id == e.product).first.price! * e.quantity!}',
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),
