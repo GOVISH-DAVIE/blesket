@@ -2,6 +2,7 @@ import 'package:blesket/core/api/api.dart';
 import 'package:blesket/core/locator.dart';
 import 'package:blesket/models/cart_list/cart_list.dart';
 import 'package:blesket/models/product_list/product_list.dart';
+import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/state/product/productendpoints.dart';
 import 'package:blesket/utils/logger.dart';
 import 'package:flutter/cupertino.dart';
@@ -111,10 +112,37 @@ class ProductProvider extends ChangeNotifier {
 
   searchProduct({required String value}) {
     logger.i("--provider ${value}");
-    _searchProducts = productLists
-        .where((element) =>
-            element.productName!.toLowerCase().contains(value.toLowerCase()))
-        .toList();
+    if (value == "") {
+      _searchProducts.clear();
+    } else {
+      _searchProducts.clear();
+      _searchProducts = productLists
+          .where((element) =>
+              element.productName!.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    }
+
+    notifyListeners();
+  }
+
+  searchProductBarCode(
+      {required String value,
+      required BuildContext context,
+      required Function goToCart}) {
+    logger.i("--provider ${value}");
+    if (value == "") {
+    } else {
+      ProductList product = productLists
+          .where(
+              (element) => element.isbn!.toLowerCase() == value.toLowerCase())
+          .toList()
+          .first;
+      addToCartProduct(productItem: product).then((value) {
+        productDialogBuilder(context, product, false);
+        // goToCart();
+      });
+    }
+
     notifyListeners();
   }
 

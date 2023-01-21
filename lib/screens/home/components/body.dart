@@ -3,6 +3,7 @@ import 'package:blesket/screens/checkout/checkout.dart';
 import 'package:blesket/screens/home/components/cartCotainer.dart';
 import 'package:blesket/screens/home/components/search.dart';
 import 'package:blesket/screens/home/components/tabviewContainer.dart';
+import 'package:blesket/state/auth/AuthProvider.dart';
 import 'package:blesket/state/product/productsprovider.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,11 @@ class _BodyState extends State<Body> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    context.read<ProductProvider>().productList();
-    context.read<ProductProvider>().cartList();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      context.read<AuthProvider>().me();
+      context.read<ProductProvider>().productList();
+      context.read<ProductProvider>().cartList();
+    });
   }
 
   String activeTab = 'cartlist';

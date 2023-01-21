@@ -112,131 +112,162 @@ Future<void> productDialogBuilder(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Product details'),
-        content: SizedBox(
+        content: Container(
+          margin: EdgeInsets.only(top: 10),
           height: MediaQuery.of(context).size.height * .9,
-          width: MediaQuery.of(context).size.width * .3,
+          width: MediaQuery.of(context).size.width * .8,
           child: Center(
-            child: Column(
+            child: Row(
               children: [
                 Container(
-                  width: double.infinity,
-                  height: 40,
-                  color: themeGreen.withOpacity(.4),
-                  child: Center(child: Text("Added to Cart")),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Image.network(
-                    width: 200,
-                    height: 200,
-                    fit: BoxFit.cover,
-                    e.images!,
-                  ),
-                ),
-                Text(
-                  '${e.productName}',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Ksh ${e.price}',
-                      style: Theme.of(context).textTheme.titleLarge,
+                  width: (MediaQuery.of(context).size.width * .8) * .4,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0, top: 8),
+                    child: Container(
+                      width:
+                          ((MediaQuery.of(context).size.width * .8) * .4) * .9,
+                      height: (MediaQuery.of(context).size.height * .9) * .7,
+                      child: Image.network(
+                          width:
+                              ((MediaQuery.of(context).size.width * .8) * .4) *
+                                  .9,
+                          height:
+                              (MediaQuery.of(context).size.height * .9) * .7,
+                          fit: BoxFit.cover,
+                          ProductEndPoints.imageLink
+                          // e.images!,
+                          ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 20),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.red),
-                          color: Colors.red.withOpacity(.2)),
-                      child: const Text(
-                        '12%',
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    )
-                  ],
-                ),
-                Text(
-                  'Ingredients',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * .2,
-                  child: Text(
-                    "Carbonated water, Sugar, Phospohic acid, Caffeine",
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  padding: EdgeInsets.all(3),
-                  decoration: BoxDecoration(color: themeGrey.withOpacity(.1)),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Text(
-                          'Recommended items',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ),
-                    ],
                   ),
                 ),
                 Expanded(
-                    child: Consumer<ProductProvider>(
-                  builder: (context, productProvider, child) =>
-                      SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        ...?productProvider.productLists.map(
-                          (e) => SizedBox(
-                            width: MediaQuery.of(context).size.width / (2.1),
-                            child: ListTile(
-                              onTap: () {
-                                productDialogBuilder(context, e, false);
-                              },
-                              leading: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                    // color: black,
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            ProductEndPoints.imageLink))),
-                              ),
-                              title: Text(
-                                '${e.productName}',
-                              ),
-                              subtitle: const Text('Aisle 23'),
-                              trailing: Text(
-                                'Ksh ${e.price}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600),
+                  child: Column(
+                    children: [
+                      isAdded == true
+                          ? Container(
+                              width: double.infinity,
+                              height: 40,
+                              color: themeGreen.withOpacity(.4),
+                              child: Center(child: Text("Added to Cart")),
+                            )
+                          : SizedBox(),
+                      Row(
+                        children: [
+                          Text(
+                            'Product details',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                        ],
+                      ),
+                      Divider(),
+                      Text(
+                        '${e.productName}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Ksh ${e.price}',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 20),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.red),
+                                color: Colors.red.withOpacity(.2)),
+                            child: const Text(
+                              '12%',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          )
+                        ],
+                      ),
+                      Text(
+                        'Ingredients',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * .2,
+                        child: Text(
+                          "Carbonated water, Sugar, Phospohic acid, Caffeine",
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(3),
+                        decoration:
+                            BoxDecoration(color: themeGrey.withOpacity(.1)),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                'Recommended items',
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                          child: Consumer<ProductProvider>(
+                        builder: (context, productProvider, child) =>
+                            SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ...?productProvider.productLists.map(
+                                (e) => SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width / (2.1),
+                                  child: ListTile(
+                                    onTap: () {
+                                      productDialogBuilder(context, e, false);
+                                    },
+                                    leading: Container(
+                                      height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                          // color: black,
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  ProductEndPoints.imageLink))),
+                                    ),
+                                    title: Text(
+                                      '${e.productName}',
+                                    ),
+                                    subtitle: const Text('Aisle 23'),
+                                    trailing: Text(
+                                      'Ksh ${e.price}',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 18.0, right: 18),
+                                child: Divider(),
+                              ),
+                            ],
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 18.0, right: 18),
-                          child: Divider(),
-                        ),
-                      ],
-                    ),
+                      ))
+                    ],
                   ),
-                ))
+                ),
               ],
             ),
           ),

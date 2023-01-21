@@ -116,7 +116,10 @@ class _SearchPageState extends State<SearchPage> {
                         width: (MediaQuery.of(context).size.width / 2.1) * .7,
                         child: TextFormField(
                           onChanged: (value) {
-                            productProvider.searchProduct(value: value);
+                            productProvider.searchProductBarCode(
+                                value: value,
+                                context: context,
+                                goToCart: widget.goToCart);
                           },
                           decoration: const InputDecoration(
                               fillColor: Colors.white,

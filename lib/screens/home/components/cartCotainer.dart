@@ -55,15 +55,20 @@ class _CartContainerState extends State<CartContainer> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: Image.network(
+                                  child: Container(
                                     width: 100,
                                     height: 200,
-                                    fit: BoxFit.cover,
-                                    productProvider.productLists
-                                        .where((element) =>
-                                            element.id == e.product)
-                                        .first
-                                        .images!,
+                                    child: Image.network(
+                                        width: 100,
+                                        height: 200,
+                                        fit: BoxFit.cover,
+                                        ProductEndPoints.imageLink
+                                        // productProvider.productLists
+                                        //     .where((element) =>
+                                        //         element.id == e.product)
+                                        //     .first
+                                        //     .images!,
+                                        ),
                                   ),
                                 ),
                                 Expanded(
