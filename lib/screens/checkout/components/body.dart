@@ -2,8 +2,10 @@ import 'package:blesket/components/navigation.dart';
 import 'package:blesket/screens/checkoutCard/checkoutcard.dart';
 import 'package:blesket/screens/checkoutMpesa/checkoutMpesa.dart';
 import 'package:blesket/screens/receiptfeedback/receiptfeedback.dart';
+import 'package:blesket/state/product/productsprovider.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -13,6 +15,13 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<ProductProvider>().getMpesa();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +57,7 @@ class _BodyState extends State<Body> {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 120,
+                    height: 100,
                   ),
                   const Text(
                     'Select payment method',
@@ -57,7 +66,7 @@ class _BodyState extends State<Body> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(
+                  const Text(
                     'Select your preferred payment method',
                     style: TextStyle(color: themeGrey),
                   ),

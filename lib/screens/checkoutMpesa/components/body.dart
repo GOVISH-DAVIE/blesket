@@ -2,6 +2,7 @@ import 'package:blesket/components/navigation.dart';
 import 'package:blesket/screens/checkoutCard/checkoutcard.dart';
 import 'package:blesket/screens/checkoutMpesa/checkoutMpesa.dart';
 import 'package:blesket/screens/receipts/receipts.dart';
+import 'package:blesket/state/auth/AuthProvider.dart';
 import 'package:blesket/state/product/productsprovider.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                   child: Column(
                     children: [
                       const SizedBox(
-                        height: 60,
+                        height: 50,
                       ),
                       Image.asset(
                         'assets/images/mpesa.png',
@@ -172,7 +173,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                             ),
                           ]),
                       SizedBox(
-                        height: 230,
+                        height: 250,
                         width: 400,
                         child: index == 2
                             ? pabill()
@@ -189,20 +190,20 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                                             fontSize: 24,
                                             fontWeight: FontWeight.w600),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                      const Padding(
+                                        padding: EdgeInsets.all(8.0),
                                         child: Text(
                                           'Pay now via M-PESA ',
                                           style: TextStyle(
                                               color: themeGrey, fontSize: 16),
                                         ),
                                       ),
-                                      Text(
+                                      const Text(
                                         'You will receive an M-PESA push notification to  ',
                                         style: TextStyle(
                                             color: themeGrey, fontSize: 16),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       TextFormField(
@@ -213,7 +214,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                                     ],
                                   ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
@@ -221,7 +222,8 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                         children: [
                           InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, Receipt.route);
+                              Navigator.of(context).pop();
+                              // Navigator.pushNamed(context, Receipt.route);
                             },
                             child: Container(
                               height: 40,
@@ -229,7 +231,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(40),
                                   border: Border.all(color: themeGreen)),
-                              child: Center(
+                              child: const Center(
                                   child: Text(
                                 'Back ',
                                 style: TextStyle(color: themeGreen),
@@ -274,7 +276,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Text(
                     'By checking in you agree to the',
                     style: TextStyle(color: themeGrey),
@@ -302,8 +304,8 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
 
   Column lipaNaMpesa() {
     return Column(
-      children: [
-        const Text(
+      children: const [
+        Text(
           'Lipa na M-PESA',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
         ),
@@ -311,7 +313,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
           height: 10,
         ),
         Text(
-          '1 Go to MPESA menu \n Select “Lipa na MPESA” \n Select buy goods and services \n Enter Till number  345700 \n Enter Amount Ksh 3450.00 \n Enter your M-Pesa PIN \n Payment request will come from “BIG6 supermarket” \n Confirm and proceed to pay  ',
+          '1. Go to MPESA menu \n2. Select “Lipa na MPESA” \n3. Select buy goods and services \n4. Enter Till number  345700 \n5. Enter Amount Ksh 3450.00 \n6. Enter your M-Pesa PIN \n7. Payment request will come from “BIG6 supermarket” \n8. Confirm and proceed to pay  ',
           style: TextStyle(
             fontSize: 16,
             color: themeGrey,
@@ -329,12 +331,12 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
           'MPESA Paybill',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Text(
-          "Go to MPESA menu \n Select “Lipa na MPESA” \n Select Paybill \n Enter PayBill number 345700 \n Enter account number 0700567890  \n Enter Amount Ksh 3450.00  \n Enter your M-Pesa PIN \n Payment request will come from “BIG6 supermarket” \n Confirm and proceed to pay ",
-          style: TextStyle(
+          "1. Go to MPESA menu \n2. Select “Lipa na MPESA” \n3. Select Paybill \n4. Enter PayBill number 345700 \n5. Enter account number ${context.read<AuthProvider>().profile?.phoneNumber}  \n6. Enter Amount Ksh ${context.read<ProductProvider>().total}  \n7. Enter your M-Pesa PIN \n8. Payment request will come from “BIG6 supermarket” \n9.  Confirm and proceed to pay ",
+          style: const TextStyle(
             fontSize: 16,
             color: themeGrey,
           ),

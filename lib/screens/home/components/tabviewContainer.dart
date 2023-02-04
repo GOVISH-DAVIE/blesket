@@ -70,7 +70,7 @@ class _TabContainerState extends State<TabContainer> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                       border: Border.all(color: Colors.red),
-                                      color: Colors.red.withOpacity(.2)),
+                                      color: dustred),
                                   child: const Text(
                                     '12%',
                                     style: TextStyle(color: Colors.red),

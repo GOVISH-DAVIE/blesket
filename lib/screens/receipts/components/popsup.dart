@@ -181,7 +181,7 @@ Future<void> productDialogBuilder(
                             margin: const EdgeInsets.only(left: 20),
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.red),
-                                color: Colors.red.withOpacity(.2)),
+                                color: dustred),
                             child: const Text(
                               '12%',
                               style: TextStyle(color: Colors.red),

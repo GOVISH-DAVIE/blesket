@@ -7,4 +7,5 @@ class ProductEndPoints {
   static String me = "auth/users/me/";
   static String makeOrder = "orders/place_order/";
   static String makePayment = "orders/payments/";
+  static String mpesaList = "orders/mpesa/transaction/";
 }

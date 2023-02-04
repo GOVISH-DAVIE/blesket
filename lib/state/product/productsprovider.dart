@@ -1,6 +1,7 @@
 import 'package:blesket/core/api/api.dart';
 import 'package:blesket/core/locator.dart';
 import 'package:blesket/models/cart_list/cart_list.dart';
+import 'package:blesket/models/mpesa_response/mpesa_response.dart';
 import 'package:blesket/models/product_list/product_list.dart';
 import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/state/product/productendpoints.dart';
@@ -9,9 +10,9 @@ import 'package:flutter/cupertino.dart';
 
 class ProductProvider extends ChangeNotifier {
   final Api _api = locator.get<Api>();
-  List<ProductList> _productLists = [];
+  final List<ProductList> _productLists = [];
   List<ProductList> get productLists => _productLists;
-  List<ProductList> _cart = [];
+  final List<ProductList> _cart = [];
   List<ProductList> get cart => _cart;
   List<ProductList> _searchProducts = [];
   List<ProductList> get searchProducts => _searchProducts;
@@ -27,6 +28,18 @@ class ProductProvider extends ChangeNotifier {
   bool get cartLoading => _cartLoading;
 
   bool busy = true;
+  List<MpesaResponse> _mpesaList = [];
+  List<MpesaResponse> get mpesaList => _mpesaList;
+
+  getMpesa() async {
+    await _api.getHTTP(endpoint: ProductEndPoints.mpesaList).then((value) {
+      logger.i(value);
+      _mpesaList = value as List<MpesaResponse>;
+    }).catchError((onError) {
+      logger.i(onError);
+    });
+  }
+
   productList() async {
     await _api.getHTTP(endpoint: ProductEndPoints.allProducts).then((value) {
       logger.i(value);
@@ -138,7 +151,9 @@ class ProductProvider extends ChangeNotifier {
           .toList()
           .first;
       addToCartProduct(productItem: product).then((value) {
-        productDialogBuilder(context, product, false);
+        productDialogBuilder(context, product, true);
+        cartList();
+
         // goToCart();
       });
     }

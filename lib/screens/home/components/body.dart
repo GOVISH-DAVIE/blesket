@@ -1,12 +1,16 @@
+import 'package:blesket/components/buttons.dart';
 import 'package:blesket/components/navigation.dart';
 import 'package:blesket/screens/checkout/checkout.dart';
 import 'package:blesket/screens/home/components/cartCotainer.dart';
+import 'package:blesket/screens/home/components/scan.dart';
 import 'package:blesket/screens/home/components/search.dart';
 import 'package:blesket/screens/home/components/tabviewContainer.dart';
 import 'package:blesket/state/auth/AuthProvider.dart';
 import 'package:blesket/state/product/productsprovider.dart';
 import 'package:blesket/utils/color.dart';
+import 'package:blesket/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
@@ -135,6 +139,37 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                     ]),
+              Container(
+                margin: EdgeInsets.only(left: 100),
+                height: 40,
+                width: 200,
+                child: FullWithButton(
+                    callback: () {
+                      setState(() {
+                        activeTab = 'scan';
+                      });
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: SvgPicture.asset(
+                              'assets/images/barcodescanner.svg',
+                              color: jungleGreen,
+                              height: 20,
+                              semanticsLabel: 'barcode scanner'),
+                        ),
+                        Text(
+                          'Scan product barcode',
+                          style: TextStyle(color: jungleGreen),
+                        ),
+                      ],
+                    ),
+                    type: outlineButtonDefault.copyWith(
+                        foregroundColor:
+                            MaterialStateProperty.all(jungleGreen))),
+              ),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -144,6 +179,8 @@ class _BodyState extends State<Body> {
                       style: TextStyle(color: Color(0xff262626)),
                     ),
                     Switch(
+                        activeColor: themeGreen,
+                        inactiveTrackColor: themeGreen,
                         value: false,
                         onChanged: (value) {
                           return;
@@ -179,11 +216,13 @@ class _BodyState extends State<Body> {
                     color: Colors.white,
                     child: activeTab == "cartlist"
                         ? CartContainer()
-                        : SearchPage(goToCart: () {
-                            setState(() {
-                              activeTab = 'cartlist';
-                            });
-                          }),
+                        : activeTab == "scan"
+                            ? ScanWidget()
+                            : SearchPage(goToCart: () {
+                                setState(() {
+                                  activeTab = 'cartlist';
+                                });
+                              }),
                   ),
                   const SizedBox(
                     height: 20,

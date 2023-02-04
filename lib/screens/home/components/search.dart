@@ -120,6 +120,7 @@ class _SearchPageState extends State<SearchPage> {
                                 value: value,
                                 context: context,
                                 goToCart: widget.goToCart);
+                            // widget.goToCart();
                           },
                           decoration: const InputDecoration(
                               fillColor: Colors.white,
@@ -127,20 +128,6 @@ class _SearchPageState extends State<SearchPage> {
                               prefixIcon: Icon(Icons.search)),
                         ),
                       ),
-                      Expanded(
-                          child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FloatingActionButton.extended(
-                            backgroundColor: themeGrey,
-                            icon: const Icon(Icons.qr_code_scanner),
-                            onPressed: () => scanBarcodeNormal(),
-                            label: const Text('Scan Bar Code')),
-                      )
-                          //      IconButton(
-                          //   onPressed: () => scanBarcodeNormal(),
-                          //   icon: Icon(Icons.qr_code_scanner_sharp),
-                          // )
-                          )
                     ],
                   ),
                   Expanded(

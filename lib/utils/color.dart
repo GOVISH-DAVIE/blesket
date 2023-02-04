@@ -10,3 +10,5 @@ const Color white = Color.fromARGB(255, 255, 255, 255);
 
 const Color transparent = Colors.transparent;
 const Color textThemeGrey = Color(0xff808080);
+const Color dustred = Color(0xffFFA39E);
+const Color jungleGreen = Color(0xff284D19);
