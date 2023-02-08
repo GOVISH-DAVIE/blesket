@@ -4,6 +4,7 @@ import 'package:blesket/components/buttons.dart';
 import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/state/product/productendpoints.dart';
 import 'package:blesket/state/product/productsprovider.dart';
+import 'package:blesket/utils/color.dart';
 import 'package:blesket/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,7 +50,8 @@ class _CartContainerState extends State<CartContainer> {
                                       .where(
                                           (element) => element.id == e.product)
                                       .first,
-                                  true);
+                                  true,
+                                  white);
                             },
                             child: Row(
                               children: [

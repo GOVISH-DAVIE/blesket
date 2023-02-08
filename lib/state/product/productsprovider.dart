@@ -5,6 +5,7 @@ import 'package:blesket/models/mpesa_response/mpesa_response.dart';
 import 'package:blesket/models/product_list/product_list.dart';
 import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/state/product/productendpoints.dart';
+import 'package:blesket/utils/color.dart';
 import 'package:blesket/utils/logger.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -151,7 +152,7 @@ class ProductProvider extends ChangeNotifier {
           .toList()
           .first;
       addToCartProduct(productItem: product).then((value) {
-        productDialogBuilder(context, product, true);
+        productDialogBuilder(context, product, true, white);
         cartList();
 
         // goToCart();

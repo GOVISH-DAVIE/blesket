@@ -80,7 +80,7 @@ class _SearchPageState extends State<SearchPage> {
             _result = element;
           });
 
-          productDialogBuilder(context, element, true);
+          productDialogBuilder(context, element, true, white);
 
           widget.goToCart();
         }
@@ -124,7 +124,7 @@ class _SearchPageState extends State<SearchPage> {
                           },
                           decoration: const InputDecoration(
                               fillColor: Colors.white,
-                              hintText: 'Search for product',
+                              hintText: 'Search  product',
                               prefixIcon: Icon(Icons.search)),
                         ),
                       ),
@@ -146,7 +146,8 @@ class _SearchPageState extends State<SearchPage> {
                                       MediaQuery.of(context).size.width / (2.1),
                                   child: ListTile(
                                     onTap: () {
-                                      productDialogBuilder(context, e, false);
+                                      productDialogBuilder(
+                                          context, e, false, white);
                                     },
                                     leading: Container(
                                       height: 50,
