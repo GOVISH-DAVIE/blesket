@@ -39,67 +39,110 @@ class _CartContainerState extends State<CartContainer> {
                 : Column(
                     children: [
                       ...?productProvider.cartItems?.myCart?.map(
-                        (e) => SizedBox(
-                          width: MediaQuery.of(context).size.width / (2.1),
-                          height: 150,
-                          child: InkWell(
-                            onTap: () {
-                              productDialogBuilder(
-                                  context,
-                                  productProvider.productLists
-                                      .where(
-                                          (element) => element.id == e.product)
-                                      .first,
-                                  true,
-                                  white);
-                            },
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: Container(
-                                    width: 100,
-                                    height: 200,
-                                    child: Image.network(
-                                        width: 100,
-                                        height: 200,
-                                        fit: BoxFit.cover,
-                                        ProductEndPoints.imageLink
-                                        // productProvider.productLists
-                                        //     .where((element) =>
-                                        //         element.id == e.product)
-                                        //     .first
-                                        //     .images!,
-                                        ),
-                                  ),
-                                ),
-                                Expanded(
-                                    child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '${productProvider.productLists.where((element) => element.id == e.product).first.productName}',
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge,
-                                    ),
-                                    Text(
-                                      ' Quantity : ${e.quantity}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
+                        (e) => Dismissible(
+                          confirmDismiss: (DismissDirection direction) async {
+                            return await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  backgroundColor: dustred,
+                                  title: const Text("Cart "),
+                                  content: const Text(
+                                      "Are you sure you want to remove this item from the cart?"),
+                                  actions: <Widget>[
+                                    FullWithButton(
+                                        type: defaultButtonTheme,
+                                        callback: () {
+                                          context
+                                              .read<ProductProvider>()
+                                              .removeFromCart(
+                                                  productSlung: productProvider
+                                                      .productLists
+                                                      .where((element) =>
+                                                          element.id ==
+                                                          e.product)
+                                                      .first
+                                                      .slug!,
+                                                  cartItemId: 3);
+                                        },
+                                        // Navigator.of(context).pop(true),
+                                        child: const Text("Yes")),
+                                    FullWithButton(
+                                      type: inactiveButtonTheme,
+                                      callback: () =>
+                                          Navigator.of(context).pop(false),
+                                      child: const Text("No"),
                                     ),
                                   ],
-                                )),
-                                SizedBox(
-                                  width: 100,
-                                  child: Text(
-                                    'Ksh ${productProvider.productLists.where((element) => element.id == e.product).first.price! * e.quantity!}',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w600),
+                                );
+                              },
+                            );
+                          },
+                          key: Key('item ${e.toJson()}'),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / (2.1),
+                            height: 150,
+                            child: InkWell(
+                              onTap: () {
+                                productDialogBuilder(
+                                    context,
+                                    productProvider.productLists
+                                        .where((element) =>
+                                            element.id == e.product)
+                                        .first,
+                                    true,
+                                    white);
+                              },
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 8.0),
+                                    child: SizedBox(
+                                      width: 100,
+                                      height: 200,
+                                      child: Image.network(
+                                          width: 100,
+                                          height: 200,
+                                          fit: BoxFit.cover,
+                                          ProductEndPoints.imageLink
+                                          // productProvider.productLists
+                                          //     .where((element) =>
+                                          //         element.id == e.product)
+                                          //     .first
+                                          //     .images!,
+                                          ),
+                                    ),
                                   ),
-                                )
-                              ],
+                                  Expanded(
+                                      child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${productProvider.productLists.where((element) => element.id == e.product).first.productName}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
+                                      ),
+                                      Text(
+                                        ' Quantity : ${e.quantity}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                      ),
+                                    ],
+                                  )),
+                                  SizedBox(
+                                    width: 100,
+                                    child: Text(
+                                      'Ksh ${productProvider.productLists.where((element) => element.id == e.product).first.price! * e.quantity!}',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),

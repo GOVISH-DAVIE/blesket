@@ -15,6 +15,7 @@ abstract class ApiAbstract {
       {required String endpoint, required Map<String, dynamic> params});
   Future<Response> postNoHeaders(
       {required String endpoint, required Map<String, dynamic> params});
+  Future<Response> delete({required String endpoint});
 }
 
 class Api implements ApiAbstract {
@@ -68,6 +69,19 @@ class Api implements ApiAbstract {
 
     return _dio.post('$baseUrl$endpoint',
         data: FormData.fromMap(params),
+        options: Options(headers: <String, String>{
+          'OCS-APIRequest': 'true',
+          'accept': 'application/json'
+        }));
+  }
+
+  @override
+  Future<Response> delete({
+    required String endpoint,
+  }) async {
+    logger.i('$baseUrl$endpoint');
+    // TODO: implement delete
+    return _dio.delete('$baseUrl$endpoint',
         options: Options(headers: <String, String>{
           'OCS-APIRequest': 'true',
           'accept': 'application/json'

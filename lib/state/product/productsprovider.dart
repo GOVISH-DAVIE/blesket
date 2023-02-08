@@ -35,7 +35,7 @@ class ProductProvider extends ChangeNotifier {
   getMpesa() async {
     await _api.getHTTP(endpoint: ProductEndPoints.mpesaList).then((value) {
       logger.i(value);
-      _mpesaList = value as List<MpesaResponse>;
+      // _mpesaList = value as List<MpesaResponse>;
     }).catchError((onError) {
       logger.i(onError);
     });
@@ -203,25 +203,22 @@ class ProductProvider extends ChangeNotifier {
       notifyListeners();
       logger.i(onError);
     });
-    // return await _api.post(endpoint: "${ProductEndPoints.makeOrder}", params: {
-    //   "first_name": "Jacob",
-    //   "last_name": "Miru",
-    //   "phone": pNumber,
-    //   "email": "gakungajake@gmail.com",
-    //   "address_line_1": "Roysambu",
-    //   "address_line_2": "Lumumba drive",
-    //   "country": "Kenya",
-    //   "state": "Nairobi",
-    //   "city": "Nairobi",
-    //   "order_note": "Best"
-    // }).then((value) {
-    //   logger.w('--making order ${value.data}');
-    //   _addtoCartBusy = true;
-    //   notifyListeners();
-    // }).catchError((onError) {
-    //   _addtoCartBusy = true;
-    //   notifyListeners();
-    //   logger.i(onError);
-    // });
+  }
+
+  removeFromCart({
+    required String productSlung,
+    required int cartItemId,
+  }) async {
+    return await _api
+        .delete(
+            endpoint:
+                "${ProductEndPoints.removeItem}$productSlung/$cartItemId/")
+        .then((value) {
+      logger.i("--removing cart ${value.data}");
+      cartList();
+    }).catchError((onError) {
+      logger.e("--removing cart error $onError");
+      return throw onError;
+    });
   }
 }
