@@ -1,6 +1,7 @@
 import 'package:blesket/components/navigation.dart';
 import 'package:blesket/screens/checkoutCard/checkoutcard.dart';
 import 'package:blesket/screens/checkoutMpesa/checkoutMpesa.dart';
+import 'package:blesket/screens/checkoutMpesa/components/confirmpayment.dart';
 import 'package:blesket/screens/receipts/receipts.dart';
 import 'package:blesket/state/auth/AuthProvider.dart';
 import 'package:blesket/state/product/productsprovider.dart';
@@ -18,6 +19,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> with TickerProviderStateMixin {
   TabController? _tabController;
+  bool busy = false;
   int index = 0;
   String? pNumber;
   @override
@@ -241,9 +243,37 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                           index == 0
                               ? InkWell(
                                   onTap: () {
+                                    setState(() {
+                                      busy = true;
+                                    });
                                     context
                                         .read<ProductProvider>()
-                                        .makeOrder(pNumber: pNumber!);
+                                        .makeOrder(pNumber: pNumber!)
+                                        .then((value) {
+                                      setState(() {
+                                        busy = false;
+                                      });
+                                      showDialog<void>(
+                                        context: context,
+                                        barrierDismissible:
+                                            false, // user must tap button!
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title:
+                                                const Text('Confirm Payment'),
+                                            content: const ConfirmPayment(),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                child: const Text('Approve'),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    });
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
@@ -256,11 +286,17 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                                               BorderRadius.circular(40),
                                           border:
                                               Border.all(color: themeGreen)),
-                                      child: Center(
-                                          child: Text(
-                                        'Initiate payment ',
-                                        style: TextStyle(color: Colors.white),
-                                      )),
+                                      child: busy
+                                          ? Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            )
+                                          : const Center(
+                                              child: Text(
+                                              'Initiate payment ',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )),
                                     ),
                                   ),
                                 )

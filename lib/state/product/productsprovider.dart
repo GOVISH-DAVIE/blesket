@@ -176,32 +176,28 @@ class ProductProvider extends ChangeNotifier {
     });
   }
 
-  makeOrder({required String pNumber}) async {
+  Future makeOrder({required String pNumber}) async {
     logger.i('--number $pNumber');
     _addtoCartBusy = true;
     notifyListeners();
 
-    return await _api.post(
-        endpoint: "${ProductEndPoints.makePayment}20230107125817jakey/",
-        params: {
-          "first_name": "Jacob",
-          "last_name": "Miru",
-          "phone": pNumber,
-          "email": "gakungajake@gmail.com",
-          "address_line_1": "Roysambu",
-          "address_line_2": "Lumumba drive",
-          "country": "Kenya",
-          "state": "Nairobi",
-          "city": "Nairobi",
-          "order_note": "Best"
-        }).then((value) {
+    return await _api
+        .post(
+            endpoint: "${ProductEndPoints.makeOrder}",
+            params: {
+              "phone": pNumber,
+            },
+            isjson: true)
+        .then((value) {
       logger.w('--making order ${value.data}');
       _addtoCartBusy = true;
       notifyListeners();
+      return true;
     }).catchError((onError) {
       _addtoCartBusy = true;
       notifyListeners();
       logger.i(onError);
+      return throw onError;
     });
   }
 

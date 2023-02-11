@@ -40,13 +40,15 @@ class Api implements ApiAbstract {
 
   @override
   Future<Response> post(
-      {required String endpoint, required Map<String, dynamic> params}) async {
+      {required String endpoint,
+      required Map<String, dynamic> params,
+      bool? isjson}) async {
     logger.i('$baseUrl$endpoint');
     final prefs = await SharedPreferences.getInstance();
     user = User.fromJson(jsonDecode(prefs.getString('user')!));
 
     return _dio.post('$baseUrl$endpoint',
-        data: FormData.fromMap(params),
+        data: isjson == true ? (params) : FormData.fromMap(params),
         options: Options(headers: <String, String>{
           'authorization': 'Bearer ${user!.access!}',
           'OCS-APIRequest': 'true',
