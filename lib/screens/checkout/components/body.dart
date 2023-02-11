@@ -31,7 +31,7 @@ class _BodyState extends State<Body> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(
-            height: 30,
+            height: 10,
           ),
           const Text(
             'Checkout',
@@ -41,7 +41,7 @@ class _BodyState extends State<Body> {
             height: 20,
           ),
           SizedBox(
-            height: 500,
+            height: 400,
             width: MediaQuery.of(context).size.width / 1.5,
             child: Container(
               // padding: EdgeInsetsGeometry(),

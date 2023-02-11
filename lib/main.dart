@@ -24,9 +24,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context
-        .read<SocketsProvider>()
-        .connect(signalingUrl: "ws://192.168.0.16:8000/ws/");
   }
 
   // This widget is the root of your application.

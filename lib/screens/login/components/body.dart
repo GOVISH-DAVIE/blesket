@@ -3,6 +3,7 @@ import 'package:blesket/components/buttons.dart';
 import 'package:blesket/screens/home/home.dart';
 import 'package:blesket/screens/otp/otp.dart';
 import 'package:blesket/state/auth/AuthProvider.dart';
+import 'package:blesket/state/sockets/socketsprovider.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:blesket/utils/constants.dart';
 import 'package:blesket/utils/theme.dart';
@@ -45,6 +46,15 @@ class _BodyState extends State<Body> {
         errors.remove(error);
       });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      context.read<SocketsProvider>().connect(
+          signalingUrl: "ws://192.168.0.16:8000/ws/", context: context);
+    });
   }
 
   @override

@@ -17,7 +17,7 @@ class AuthProvider extends ChangeNotifier {
   ProfileModel? get profile => _profile;
 
   AuthProvider() {
-    // getAuth();
+    getAuth();
   }
 
   getAuth() async {
@@ -38,6 +38,8 @@ class AuthProvider extends ChangeNotifier {
         endpoint: AuthEndpoints.login,
         params: {"email": email, "password": password}).then((value) {
       logger.i(value);
+      _isLoggedIn = true;
+      notifyListeners();
       // locator.get<RoomProvider>().setrooms(Room.fromJson(value.data));
       prefs.setString('user', jsonEncode(User.fromJson(value.data).toJson()));
       // return Room.fromJson(value.data);

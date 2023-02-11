@@ -21,7 +21,7 @@ class _BodyState extends State<Body> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(
-            height: 30,
+            height: 10,
           ),
           const Text(
             'Checkout',
@@ -63,7 +63,7 @@ class _BodyState extends State<Body> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(
+                  const Text(
                     'Select your preferred payment method',
                     style: TextStyle(color: themeGrey),
                   ),
