@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:blesket/core/api/api.dart';
 import 'package:blesket/core/locator.dart';
 import 'package:blesket/models/cart_list/cart_list.dart';
@@ -44,6 +46,8 @@ class ProductProvider extends ChangeNotifier {
   productList() async {
     await _api.getHTTP(endpoint: ProductEndPoints.allProducts).then((value) {
       logger.i(value);
+      _productLists.clear();
+      notifyListeners();
       for (var i = 0; i < value.data.length; i++) {
         _productLists.add(ProductList.fromJson(value.data[i]));
       }
@@ -183,7 +187,7 @@ class ProductProvider extends ChangeNotifier {
 
     return await _api
         .post(
-            endpoint: "${ProductEndPoints.makeOrder}",
+            endpoint: ProductEndPoints.makeOrder,
             params: {
               "phone": pNumber,
             },
@@ -215,6 +219,33 @@ class ProductProvider extends ChangeNotifier {
     }).catchError((onError) {
       logger.e("--removing cart error $onError");
       return throw onError;
+    });
+  }
+
+  Future confirmPayment({required String code}) async {
+    return await _api
+        .getHTTP(endpoint: "${ProductEndPoints.confirmPayment}?search=$code")
+        .then((value) {
+      logger.i("server response $value");
+      List<MpesaResponse> res = [];
+      for (var i = 0; i < value.data.length; i++) {
+        res.add(MpesaResponse.fromJson(value.data[i]));
+      }
+      // ignore: prefer_is_empty
+      return res
+                  .where((element) =>
+                      element.mpesaCode!.toLowerCase() == code.toLowerCase())
+                  .toList()
+                  .length >
+              0
+          ? res
+              .where((element) =>
+                  element.mpesaCode!.toLowerCase() == code.toLowerCase())
+              .toList()
+          : throw false;
+    }).catchError((onError) {
+      logger.e('error $onError');
+      return throw false;
     });
   }
 }

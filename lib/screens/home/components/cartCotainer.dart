@@ -24,6 +24,13 @@ class _CartContainerState extends State<CartContainer> {
       builder: (context, productProvider, child) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          FullWithButton(
+              callback: () {
+                context.read<SocketsProvider>().handleOnMessage(
+                    msg: "Urban Bites Funky Fruit Chutny Potato Crisps == 1");
+              },
+              child: Text('simulate'),
+              type: outlineButtonDefault),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(

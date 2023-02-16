@@ -1,12 +1,8 @@
-import 'package:blesket/components/colorSwatch.dart';
 import 'package:blesket/models/product_list/product_list.dart';
 import 'package:blesket/screens/receipts/receipts.dart';
-import 'package:blesket/state/product/productendpoints.dart';
-import 'package:blesket/state/product/productsprovider.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 Future<void> dialogBuilder(BuildContext context) {
   return showDialog<void>(
@@ -140,7 +136,7 @@ class AlertDialogContent extends StatelessWidget {
       length: 3,
       child: Container(
         // color: themeBlue,
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         height: MediaQuery.of(context).size.height * .9,
         width: MediaQuery.of(context).size.width * .8,
         child: Center(
@@ -151,7 +147,7 @@ class AlertDialogContent extends StatelessWidget {
                 children: [
                   IconButton(
                       onPressed: () => Navigator.of(context).pop(context),
-                      icon: Icon(Icons.close))
+                      icon: const Icon(Icons.close))
                 ],
               ),
               isAdded == true
@@ -166,11 +162,11 @@ class AlertDialogContent extends StatelessWidget {
                             child: SvgPicture.asset('assets/images/done.svg',
                                 height: 20, semanticsLabel: 'Acme Logo'),
                           ),
-                          Center(child: Text("Item added to  cart")),
+                          const Center(child: Text("Item added to  cart")),
                         ],
                       ),
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
               Expanded(
                 child: Row(
                   children: [
@@ -192,7 +188,7 @@ class AlertDialogContent extends StatelessWidget {
                                   (MediaQuery.of(context).size.height * .9) *
                                       .7,
                               fit: BoxFit.cover,
-                              ProductEndPoints.imageLink
+                              e.images!
                               // e.images!,
                               ),
                         ),

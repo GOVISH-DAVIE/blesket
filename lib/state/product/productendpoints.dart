@@ -9,4 +9,5 @@ class ProductEndPoints {
   static String makePayment = "orders/payments/";
   static String mpesaList = "orders/mpesa/transaction/";
   static String removeItem = "carts/remove_cart_item/";
+  static String confirmPayment = "orders/mpesa/transaction/";
 }

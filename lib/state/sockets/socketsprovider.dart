@@ -44,7 +44,7 @@ class SocketsProvider extends ChangeNotifier {
       (_p!.isNotEmpty)
           ? _context
               ?.read<ProductProvider>()
-              .addToCartProduct(productItem: _p!.first)
+              .addToCartProduct(productItem: _p.first)
           : logger.i('');
     }
   }
