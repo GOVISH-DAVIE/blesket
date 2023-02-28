@@ -9,8 +9,8 @@ part of 'data.dart';
 _$_Data _$$_DataFromJson(Map<String, dynamic> json) => _$_Data(
       id: json['id'] as int?,
       productName: json['product_name'] as String?,
-      weight: json['weight'] as String?,
-      statusCode: json['status_code'] as String?,
+      weight: json['weight'] as int?,
+      statusCode: json['status_code'] as int?,
     );
 
 Map<String, dynamic> _$$_DataToJson(_$_Data instance) => <String, dynamic>{

@@ -47,10 +47,10 @@ class _ProductListState extends State<ProductListWidget> {
                   '${widget.e.productName}',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
-                Text(
-                  '${widget.e.isbn}',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
+                // Text(
+                //   '${widget.e.isbn}',
+                //   style: Theme.of(context).textTheme.titleSmall,
+                // ),
               ],
             )),
             SizedBox(

@@ -23,9 +23,9 @@ mixin _$Data {
   int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'product_name')
   String? get productName => throw _privateConstructorUsedError;
-  String? get weight => throw _privateConstructorUsedError;
+  int? get weight => throw _privateConstructorUsedError;
   @JsonKey(name: 'status_code')
-  String? get statusCode => throw _privateConstructorUsedError;
+  int? get statusCode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,8 +40,8 @@ abstract class $DataCopyWith<$Res> {
   $Res call(
       {int? id,
       @JsonKey(name: 'product_name') String? productName,
-      String? weight,
-      @JsonKey(name: 'status_code') String? statusCode});
+      int? weight,
+      @JsonKey(name: 'status_code') int? statusCode});
 }
 
 /// @nodoc
@@ -74,11 +74,11 @@ class _$DataCopyWithImpl<$Res, $Val extends Data>
       weight: freezed == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       statusCode: freezed == statusCode
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ) as $Val);
   }
 }
@@ -92,8 +92,8 @@ abstract class _$$_DataCopyWith<$Res> implements $DataCopyWith<$Res> {
   $Res call(
       {int? id,
       @JsonKey(name: 'product_name') String? productName,
-      String? weight,
-      @JsonKey(name: 'status_code') String? statusCode});
+      int? weight,
+      @JsonKey(name: 'status_code') int? statusCode});
 }
 
 /// @nodoc
@@ -122,11 +122,11 @@ class __$$_DataCopyWithImpl<$Res> extends _$DataCopyWithImpl<$Res, _$_Data>
       weight: freezed == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       statusCode: freezed == statusCode
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ));
   }
 }
@@ -148,10 +148,10 @@ class _$_Data implements _Data {
   @JsonKey(name: 'product_name')
   final String? productName;
   @override
-  final String? weight;
+  final int? weight;
   @override
   @JsonKey(name: 'status_code')
-  final String? statusCode;
+  final int? statusCode;
 
   @override
   String toString() {
@@ -194,8 +194,8 @@ abstract class _Data implements Data {
   factory _Data(
       {final int? id,
       @JsonKey(name: 'product_name') final String? productName,
-      final String? weight,
-      @JsonKey(name: 'status_code') final String? statusCode}) = _$_Data;
+      final int? weight,
+      @JsonKey(name: 'status_code') final int? statusCode}) = _$_Data;
 
   factory _Data.fromJson(Map<String, dynamic> json) = _$_Data.fromJson;
 
@@ -205,10 +205,10 @@ abstract class _Data implements Data {
   @JsonKey(name: 'product_name')
   String? get productName;
   @override
-  String? get weight;
+  int? get weight;
   @override
   @JsonKey(name: 'status_code')
-  String? get statusCode;
+  int? get statusCode;
   @override
   @JsonKey(ignore: true)
   _$$_DataCopyWith<_$_Data> get copyWith => throw _privateConstructorUsedError;

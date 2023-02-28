@@ -75,12 +75,16 @@ class SocketsProvider extends ChangeNotifier {
                     .toLowerCase())
             .toList();
         logger.i("search length ${_search?.length}");
+        logger.i(
+            "search length weight ${SocketMessage.fromJson(jsonDecode(msg)).data?.weight}");
         (_search!.isNotEmpty)
-            ? Future.delayed(Duration(seconds: 2), () {
-                _context
-                    ?.read<ProductProvider>()
-                    .addToCartProduct(productItem: _search.first);
-              })
+            ? SocketMessage.fromJson(jsonDecode(msg)).data?.weight != 0
+                ? Future.delayed(Duration(seconds: 2), () {
+                    _context
+                        ?.read<ProductProvider>()
+                        .addToCartProduct(productItem: _search.first);
+                  })
+                : null
             : logger.i('');
       } else {
         logger.i('--on message clean no');

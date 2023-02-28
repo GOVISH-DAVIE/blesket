@@ -213,7 +213,12 @@ class _BodyState extends State<Body> {
                                   hidden = !hidden;
                                 });
                               },
-                              child: const Icon(Icons.visibility_off))),
+                              child: Icon(
+                                hidden
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: themeGreen,
+                              ))),
                     )),
                 const SizedBox(
                   height: (10),
