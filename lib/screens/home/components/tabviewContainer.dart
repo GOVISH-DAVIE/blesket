@@ -22,11 +22,11 @@ class _TabContainerState extends State<TabContainer> {
             SizedBox(
               height: 50,
               width: (MediaQuery.of(context).size.width / (2.1)) / 1.5,
-              child: TabBar(
+              child: const TabBar(
                 labelColor: Colors.black,
                 indicatorColor: themeGreen,
                 indicatorSize: TabBarIndicatorSize.label,
-                tabs: const [
+                tabs: [
                   Tab(text: 'Shopping list'),
                   Tab(
                     text: 'Deals',

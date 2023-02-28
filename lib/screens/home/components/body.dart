@@ -217,7 +217,11 @@ class _BodyState extends State<Body> {
                     child: activeTab == "cartlist"
                         ? CartContainer()
                         : activeTab == "scan"
-                            ? ScanWidget()
+                            ? ScanWidget(goToCart: () {
+                                setState(() {
+                                  activeTab = 'cartlist';
+                                });
+                              })
                             : SearchPage(goToCart: () {
                                 setState(() {
                                   activeTab = 'cartlist';

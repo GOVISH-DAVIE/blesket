@@ -1,3 +1,4 @@
+import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/state/product/productsprovider.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:blesket/utils/logger.dart';
@@ -10,7 +11,8 @@ import 'package:provider/provider.dart';
 // import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 class ScanWidget extends StatefulWidget {
-  const ScanWidget({super.key});
+  final Function goToCart;
+  const ScanWidget({super.key, required this.goToCart});
 
   @override
   State<ScanWidget> createState() => _ScanWidgetState();
@@ -57,16 +59,26 @@ class _ScanWidgetState extends State<ScanWidget> {
                     .productLists
                     .where((element) => element.isbn == value)
                     .isNotEmpty) {
-                  // context.read<ProductProvider>().addtocartBarCode(
-                  //     productItem: context
-                  //         .read<ProductProvider>()
-                  //         .productLists
-                  //         .where((element) => element.isbn == value)
-                  //         .first);
+                  productDialogBuilder(
+                      context,
+                      context
+                          .read<ProductProvider>()
+                          .productLists
+                          .where((element) => element.isbn == value)
+                          .first,
+                      true,
+                      white);
+                  widget.goToCart();
+                  context.read<ProductProvider>().addtocartBarCode(
+                      productItem: context
+                          .read<ProductProvider>()
+                          .productLists
+                          .where((element) => element.isbn == value)
+                          .first);
                 }
               }
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
               ),

@@ -48,7 +48,7 @@ class _ProductListState extends State<ProductListWidget> {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 Text(
-                  'Aisle 23',
+                  '${widget.e.isbn}',
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],
