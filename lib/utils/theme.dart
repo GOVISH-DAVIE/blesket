@@ -8,6 +8,8 @@ Logger logger = Logger(
 ThemeData themeData() {
   return ThemeData(
       fontFamily: 'Mulish',
+      primaryColor: themeGreen,
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: themeGreen),
       appBarTheme: _appBarTheme(),
       textTheme: textTheme(),
       floatingActionButtonTheme: _floatingActionButtonThemeData(),

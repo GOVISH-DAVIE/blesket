@@ -3,8 +3,6 @@ import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/state/product/productendpoints.dart';
 import 'package:flutter/material.dart';
 
-import 'package:palette_generator/palette_generator.dart';
-
 class ProductListWidget extends StatefulWidget {
   final ProductList e;
   Size? imageSize = const Size(300, 300);
@@ -18,31 +16,6 @@ class ProductListWidget extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductListWidget> {
-  Rect? region;
-
-  PaletteGenerator? paletteGenerator;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if (widget.imageSize != null) {
-      region = Offset.zero & widget.imageSize!;
-    }
-    _updatePaletteGenerator(region);
-  }
-
-  Future<void> _updatePaletteGenerator(Rect? newRegion) async {
-    paletteGenerator = await PaletteGenerator.fromImageProvider(
-      NetworkImage(widget.e.images!
-          // e.images!,
-          ),
-      size: widget.imageSize,
-      region: newRegion,
-      maximumColorCount: 20,
-    );
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -50,8 +23,7 @@ class _ProductListState extends State<ProductListWidget> {
       height: 150,
       child: InkWell(
         onTap: () {
-          productDialogBuilder(
-              context, widget.e, false, paletteGenerator?.colors.toList()[2]);
+          productDialogBuilder(context, widget.e, false, Colors.white);
         },
         child: Row(
           children: [

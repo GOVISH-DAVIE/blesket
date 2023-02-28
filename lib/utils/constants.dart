@@ -1,6 +1,6 @@
 // const baseUrl = "http://192.168.0.16:8080/api/v1/";
 const baseUrl = "https://blesketke-live.com/api/v1/";
-// const signalingUrl = "https://signaling.tk/standalone-signaling/spreed";
+const signalingEndPoint = "ws://192.168.0.16:8082/product/";
 const String kNullError = "Please Enter your Email";
 const String kInvalidEmailError = "Please Enter Valid Email";
 const String kPassNullError = "Please Enter your password";

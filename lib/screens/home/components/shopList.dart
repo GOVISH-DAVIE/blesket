@@ -14,8 +14,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:provider/provider.dart';
 
-import 'package:palette_generator/palette_generator.dart';
-
 class ShopList extends StatefulWidget {
   const ShopList({super.key});
 

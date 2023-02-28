@@ -218,6 +218,7 @@ class ProductProvider extends ChangeNotifier {
       cartList();
     }).catchError((onError) {
       logger.e("--removing cart error $onError");
+
       return throw onError;
     });
   }

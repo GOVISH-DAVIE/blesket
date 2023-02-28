@@ -52,8 +52,9 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      context.read<SocketsProvider>().connect(
-          signalingUrl: "ws://192.168.0.16:8000/ws/", context: context);
+      context
+          .read<SocketsProvider>()
+          .connect(signalingUrl: signalingEndPoint, context: context);
     });
   }
 

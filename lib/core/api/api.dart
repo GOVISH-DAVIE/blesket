@@ -85,6 +85,7 @@ class Api implements ApiAbstract {
     // TODO: implement delete
     return _dio.delete('$baseUrl$endpoint',
         options: Options(headers: <String, String>{
+          'authorization': 'Bearer ${user!.access!}',
           'OCS-APIRequest': 'true',
           'accept': 'application/json'
         }));

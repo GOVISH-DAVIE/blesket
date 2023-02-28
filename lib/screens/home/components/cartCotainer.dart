@@ -6,6 +6,7 @@ import 'package:blesket/state/product/productendpoints.dart';
 import 'package:blesket/state/product/productsprovider.dart';
 import 'package:blesket/state/sockets/socketsprovider.dart';
 import 'package:blesket/utils/color.dart';
+import 'package:blesket/utils/constants.dart';
 import 'package:blesket/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,10 +27,11 @@ class _CartContainerState extends State<CartContainer> {
         children: [
           FullWithButton(
               callback: () {
-                context.read<SocketsProvider>().handleOnMessage(
-                    msg: "Urban Bites Funky Fruit Chutny Potato Crisps == 1");
+                context
+                    .read<SocketsProvider>()
+                    .connect(signalingUrl: signalingEndPoint, context: context);
               },
-              child: Text('simulate'),
+              child: Text('connect socket'),
               type: outlineButtonDefault),
           const Padding(
             padding: EdgeInsets.all(8.0),
@@ -109,16 +111,16 @@ class _CartContainerState extends State<CartContainer> {
                                       width: 100,
                                       height: 200,
                                       child: Image.network(
-                                          width: 100,
-                                          height: 200,
-                                          fit: BoxFit.cover,
-                                          ProductEndPoints.imageLink
-                                          // productProvider.productLists
-                                          //     .where((element) =>
-                                          //         element.id == e.product)
-                                          //     .first
-                                          //     .images!,
-                                          ),
+                                        width: 100,
+                                        height: 200,
+                                        fit: BoxFit.cover,
+                                        // ProductEndPoints.imageLink
+                                        productProvider.productLists
+                                            .where((element) =>
+                                                element.id == e.product)
+                                            .first
+                                            .images!,
+                                      ),
                                     ),
                                   ),
                                   Expanded(
