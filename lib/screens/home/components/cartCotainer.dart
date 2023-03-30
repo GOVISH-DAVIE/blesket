@@ -31,8 +31,8 @@ class _CartContainerState extends State<CartContainer> {
                     .read<SocketsProvider>()
                     .connect(signalingUrl: signalingEndPoint, context: context);
               },
-              child: Text('connect socket'),
-              type: outlineButtonDefault),
+              type: outlineButtonDefault,
+              child: const Text('connect socket')),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
@@ -43,15 +43,15 @@ class _CartContainerState extends State<CartContainer> {
           Expanded(
               child: SingleChildScrollView(
             child: context.watch<ProductProvider>().cartLoading
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : Column(
                     children: [
-                      ...?productProvider.cartItems?.myCart?.map(
+                       ...?productProvider.cartListModel?.myCart?.map(
                         (e) => Dismissible(
                           confirmDismiss: (DismissDirection direction) async {
-                            return await showDialog(
+                              return await showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
@@ -73,7 +73,10 @@ class _CartContainerState extends State<CartContainer> {
                                                           e.product)
                                                       .first
                                                       .slug!,
-                                                  cartItemId: 3);
+                                                  cartItemId: e.id!,
+                                                  context: context
+                                                  );
+
                                         },
                                         // Navigator.of(context).pop(true),
                                         child: const Text("Yes")),
@@ -119,7 +122,7 @@ class _CartContainerState extends State<CartContainer> {
                                             .where((element) =>
                                                 element.id == e.product)
                                             .first
-                                            .images!,
+                                            .mobileImage!,
                                       ),
                                     ),
                                   ),
@@ -143,11 +146,11 @@ class _CartContainerState extends State<CartContainer> {
                                       ),
                                     ],
                                   )),
-                                  SizedBox(
+                                   SizedBox(
                                     width: 100,
                                     child: Text(
-                                      'Ksh ${productProvider.productLists.where((element) => element.id == e.product).first.price! * e.quantity!}',
-                                      style: const TextStyle(
+                                      'Ksh ${productProvider.productLists.where((element) => element.id == e.product).first.variation?.where((element) => element.id == e.variations).first.price}',
+                                      style: TextStyle(
                                           fontWeight: FontWeight.w600),
                                     ),
                                   )

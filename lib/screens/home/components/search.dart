@@ -1,5 +1,5 @@
 import 'package:blesket/components/buttons.dart';
-import 'package:blesket/models/product_list/product_list.dart';
+import 'package:blesket/models/productlist.dart'; 
 import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/state/product/productendpoints.dart';
 
@@ -73,17 +73,17 @@ class _SearchPageState extends State<SearchPage> {
       Provider.of<ProductProvider>(context, listen: false)
           .productLists
           .forEach((element) {
-        if (barcodeScanRes == element.isbn) {
-          Provider.of<ProductProvider>(context, listen: false)
-              .addtocartBarCode(productItem: element);
-          setState(() {
-            _result = element;
-          });
+        // if (barcodeScanRes == element..isbn) {
+        //   Provider.of<ProductProvider>(context, listen: false)
+        //       .addtocartBarCode(productItem: element);
+        //   setState(() {
+        //     _result = element;
+        //   });
 
-          productDialogBuilder(context, element, true, white);
+        //   productDialogBuilder(context, element, true, white);
 
-          widget.goToCart();
-        }
+        //   widget.goToCart();
+        // }
       });
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
@@ -162,7 +162,7 @@ class _SearchPageState extends State<SearchPage> {
                                       '${e.productName}',
                                     ),
                                     subtitle: Text(
-                                      "KES ${e.price}",
+                                      "KES ${e.variation?.first.price}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium,

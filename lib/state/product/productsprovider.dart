@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:blesket/core/api/api.dart';
 import 'package:blesket/core/locator.dart';
+import 'package:blesket/models/CartListModel.dart';
 import 'package:blesket/models/cart_list/cart_list.dart';
 import 'package:blesket/models/mpesa_response/mpesa_response.dart';
-import 'package:blesket/models/product_list/product_list.dart';
+import 'package:blesket/models/productlist.dart';
 import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/state/product/productendpoints.dart';
 import 'package:blesket/utils/color.dart';
@@ -19,6 +20,8 @@ class ProductProvider extends ChangeNotifier {
   List<ProductList> get cart => _cart;
   List<ProductList> _searchProducts = [];
   List<ProductList> get searchProducts => _searchProducts;
+  CartListModel? _cartListModel;
+  CartListModel? get cartListModel => _cartListModel;
   CartList? _cartItems;
   CartList? get cartItems => _cartItems;
   int _total = 0;
@@ -60,12 +63,12 @@ class ProductProvider extends ChangeNotifier {
   int getTotals() {
     int total = 0;
     _cartItems?.myCart?.map((e) {
-      total = total +
-          productLists
-                  .where((element) => element.id == e.product)
-                  .first
-                  .price! *
-              e.quantity!;
+      // total = total +
+      //     productLists
+      //             .where((element) => element.id == e.product)
+      //             .first.variation
+      //             .price! *
+      //         e.quantity!;
       logger.i('--total $total');
     });
     return total;
@@ -74,29 +77,27 @@ class ProductProvider extends ChangeNotifier {
   cartList() async {
     _cartLoading = true;
     notifyListeners();
-    await _api.getHTTP(endpoint: ProductEndPoints.cartList).then((value) {
-      logger.i("cart List $value");
-      _cartItems = CartList.fromJson(value.data);
+    await _api.getHTTP(endpoint: ProductEndPoints.addToCart).then((value) {
+      logger.i("cart List $value ");
       // logger.i("--id ${getTotals()}");
-      logger.w("${CartList.fromJson(value.data).myCart!}");
       _total = 0;
       notifyListeners();
-      for (var i = 0; i < CartList.fromJson(value.data).myCart!.length; i++) {
-        logger.e('ccdc ${CartList.fromJson(value.data).myCart![i]}');
-        _total = _total +
-            (_productLists
-                    .where((element) =>
-                        element.id ==
-                        CartList.fromJson(value.data).myCart![i].product)
-                    .first
-                    .price! *
-                CartList.fromJson(value.data).myCart![i].quantity!);
-        notifyListeners();
-        logger.w('totals $total');
+      _cartListModel = CartListModel.fromJson(value.data);
+      logger.i("checking my cart ${CartListModel.fromJson(value.data).myCart}");
+      for (var i = 0; i < CartListModel.fromJson(value.data).myCart!.length; i++) {
+        _total = _total + int.parse("${productLists.where((element) => element.id == CartListModel.fromJson(value.data).myCart![i].product).first.variation?.where((element) => element.id ==  CartListModel.fromJson(value.data).myCart![i].variations).first.price}");
       }
+      CartListModel.fromJson(value.data).myCart?.map((e) {
+        logger.i(
+            "cart List totals ${productLists.where((element) => element.id == e.product).first.variation?.where((element) => element.id == e.variations).first.price}");
+        _total = _total +
+            int.parse(
+                "${productLists.where((element) => element.id == e.product).first.variation?.where((element) => element.id == e.variations).first.price}");
+      });
       _cartLoading = false;
       notifyListeners();
     }).catchError((onError) {
+      logger.i('cart list error $onError');
       _cartLoading = false;
       notifyListeners();
     });
@@ -104,15 +105,25 @@ class ProductProvider extends ChangeNotifier {
 
   Future addToCartProduct({required ProductList productItem}) async {
     logger.i(productItem);
+    logger.i({
+      "quantity": 1,
+      "product": productItem.id,
+      "variations": productItem.variation?.first.id,
+      "is_active": true
+    });
     _addtoCartBusy = true;
     notifyListeners();
-    return await _api.post(
-        endpoint: "${ProductEndPoints.addToCart}${productItem.slug}/",
-        params: {
-          "quantity": 1,
-          "variations": [1],
-          "is_active": true
-        }).then((value) {
+    return await _api
+        .post(
+            endpoint: ProductEndPoints.addToCart,
+            params: {
+              "quantity": 1,
+              "product": 1,
+              "variations": 1,
+              "is_active": true
+            },
+            isjson: true)
+        .then((value) {
       logger.i("---add to Cart ${value}");
       cartList();
       // _productLists = ProductLists.fromJson(value.data);
@@ -121,10 +132,10 @@ class ProductProvider extends ChangeNotifier {
 
       return true;
     }).catchError((onError) {
-      logger.i(onError);
+      logger.i("alot 500 ${onError}");
       _addtoCartBusy = false;
       notifyListeners();
-      return throw false;
+      return false;
     });
   }
 
@@ -138,6 +149,7 @@ class ProductProvider extends ChangeNotifier {
           .where((element) =>
               element.productName!.toLowerCase().contains(value.toLowerCase()))
           .toList();
+      logger.i("--provider ${_searchProducts}");
     }
 
     notifyListeners();
@@ -150,17 +162,17 @@ class ProductProvider extends ChangeNotifier {
     logger.i("--provider ${value}");
     if (value == "") {
     } else {
-      ProductList product = productLists
-          .where(
-              (element) => element.isbn!.toLowerCase() == value.toLowerCase())
-          .toList()
-          .first;
-      addToCartProduct(productItem: product).then((value) {
-        productDialogBuilder(context, product, true, white);
-        cartList();
+      // ProductList product = productLists
+      //     .where(
+      //         (element) => element.isbn!.toLowerCase() == value.toLowerCase())
+      //     .toList()
+      //     .first;
+      // addToCartProduct(productItem: product).then((value) {
+      //   productDialogBuilder(context, product, true, white);
+      //   cartList();
 
-        // goToCart();
-      });
+      //   // goToCart();
+      // });
     }
 
     notifyListeners();
@@ -208,6 +220,7 @@ class ProductProvider extends ChangeNotifier {
   removeFromCart({
     required String productSlung,
     required int cartItemId,
+    required BuildContext context
   }) async {
     return await _api
         .delete(
@@ -216,9 +229,12 @@ class ProductProvider extends ChangeNotifier {
         .then((value) {
       logger.i("--removing cart ${value.data}");
       cartList();
+
+                                                  Navigator.of(context).pop();
     }).catchError((onError) {
       logger.e("--removing cart error $onError");
 
+                                                  Navigator.of(context).pop();
       return throw onError;
     });
   }

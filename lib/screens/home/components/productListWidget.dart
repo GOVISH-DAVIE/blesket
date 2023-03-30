@@ -1,4 +1,5 @@
-import 'package:blesket/models/product_list/product_list.dart';
+ 
+import 'package:blesket/models/productlist.dart';
 import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/state/product/productendpoints.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class _ProductListState extends State<ProductListWidget> {
                 width: 100,
                 height: 200,
                 child: Image.network(
-                    width: 100, height: 200, fit: BoxFit.cover, widget.e.images!
+                    width: 100, height: 200, fit: BoxFit.cover, widget.e.mobileImage!
                     // e.images!,
                     ),
               ),
@@ -56,7 +57,7 @@ class _ProductListState extends State<ProductListWidget> {
             SizedBox(
               width: 100,
               child: Text(
-                'Ksh ${widget.e.price}',
+                'Ksh ${widget.e.variation?.first.price}',
                 style: const TextStyle(fontWeight: FontWeight.w600),
               ),
             )

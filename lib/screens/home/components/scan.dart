@@ -43,39 +43,39 @@ class _ScanWidgetState extends State<ScanWidget> {
             onSaved: (newValue) => logger.i(newValue),
             onChanged: (value) {
               if (value.length == 13) {
-                logger.i(value.length);
-                logger.i("logger ${value}");
-                logger.i(
-                    "logger ${context.read<ProductProvider>().productLists.length}");
-                context.read<ProductProvider>().productLists.map((e) {
-                  logger.i(e.isbn);
-                });
-                context.read<ProductProvider>().productLists.where((element) {
-                  logger.i(element.isbn);
-                  return element.isbn == value;
-                });
-                if (context
-                    .read<ProductProvider>()
-                    .productLists
-                    .where((element) => element.isbn == value)
-                    .isNotEmpty) {
-                  productDialogBuilder(
-                      context,
-                      context
-                          .read<ProductProvider>()
-                          .productLists
-                          .where((element) => element.isbn == value)
-                          .first,
-                      true,
-                      white);
+                // logger.i(value.length);
+                // logger.i("logger ${value}");
+                // logger.i(
+                //     "logger ${context.read<ProductProvider>().productLists.length}");
+                // context.read<ProductProvider>().productLists.map((e) {
+                //   logger.i(e.isbn);
+                // });
+                // context.read<ProductProvider>().productLists.where((element) {
+                //   logger.i(element.isbn);
+                //   return element.isbn == value;
+                // });
+                // if (context
+                //     .read<ProductProvider>()
+                //     .productLists
+                //     .where((element) => element.isbn == value)
+                //     .isNotEmpty) {
+                  // productDialogBuilder(
+                  //     context,
+                  //     context
+                  //         .read<ProductProvider>()
+                  //         .productLists
+                  //         .where((element) => element.isbn == value)
+                  //         .first,
+                  //     true,
+                  //     white);
                   widget.goToCart();
-                  context.read<ProductProvider>().addtocartBarCode(
-                      productItem: context
-                          .read<ProductProvider>()
-                          .productLists
-                          .where((element) => element.isbn == value)
-                          .first);
-                }
+                  // context.read<ProductProvider>().addtocartBarCode(
+                  //     productItem: context
+                  //         .read<ProductProvider>()
+                  //         .productLists
+                  //         .where((element) => element.isbn == value)
+                  //         .first);
+                // }
               }
             },
             decoration: const InputDecoration(

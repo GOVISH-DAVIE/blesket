@@ -1,4 +1,5 @@
-import 'package:blesket/models/product_list/product_list.dart';
+// import 'package:blesket/models/product_list/product_list.dart';
+import 'package:blesket/models/productlist.dart';
 import 'package:blesket/screens/receipts/receipts.dart';
 import 'package:blesket/utils/color.dart';
 import 'package:flutter/material.dart';
@@ -188,7 +189,7 @@ class AlertDialogContent extends StatelessWidget {
                                   (MediaQuery.of(context).size.height * .9) *
                                       .7,
                               fit: BoxFit.cover,
-                              e.images!
+                              e.mobileImage!
                               // e.images!,
                               ),
                         ),
@@ -238,7 +239,7 @@ class AlertDialogContent extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Ksh ${e.price}',
+                                  'Ksh ${e.variation?.first.price}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!

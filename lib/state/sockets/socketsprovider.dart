@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:ffi';
 
-import 'package:blesket/models/product_list/product_list.dart';
+import 'package:blesket/models/productlist.dart';
 import 'package:blesket/models/socket_message/socket_message.dart';
 import 'package:blesket/sockets/sockets.dart';
 import 'package:blesket/state/auth/AuthProvider.dart';
@@ -61,33 +61,33 @@ class SocketsProvider extends ChangeNotifier {
         logger.i(
             '--on message clean ${SocketMessage.fromJson(jsonDecode(msg)).data?.productName?.split(":").last.trim()}');
 
-        List<ProductList>? _search = _context
-            ?.read<ProductProvider>()
-            .productLists
-            .where((element) =>
-                element.productName?.toLowerCase() ==
-                SocketMessage.fromJson(jsonDecode(msg))
-                    .data
-                    ?.productName
-                    ?.split(":")
-                    .last
-                    .trim()
-                    .toLowerCase())
-            .toList();
-        logger.i("search length ${_search?.length}");
-        logger.i(
-            "search length weight ${SocketMessage.fromJson(jsonDecode(msg)).data?.weight}");
-        (_search!.isNotEmpty)
-            ? SocketMessage.fromJson(jsonDecode(msg)).data?.weight != 0
-                ? Future.delayed(Duration(seconds: 2), () {
-                    _context
-                        ?.read<ProductProvider>()
-                        .addToCartProduct(productItem: _search.first);
-                  })
-                : null
-            : logger.i('');
-      } else {
-        logger.i('--on message clean no');
+        // List<ProductList>? _search = _context
+        //     ?.read<ProductProvider>()
+        //     .productLists
+        //     .where((element) =>
+        //         element.productName?.toLowerCase() ==
+        //         SocketMessage.fromJson(jsonDecode(msg))
+        //             .data
+        //             ?.productName
+        //             ?.split(":")
+        //             .last
+        //             .trim()
+        //             .toLowerCase())
+        //     .toList();
+      //   logger.i("search length ${_search?.length}");
+      //   logger.i(
+      //       "search length weight ${SocketMessage.fromJson(jsonDecode(msg)).data?.weight}");
+      //   (_search!.isNotEmpty)
+      //       ? SocketMessage.fromJson(jsonDecode(msg)).data?.weight != 0
+      //           ? Future.delayed(Duration(seconds: 2), () {
+      //               _context
+      //                   ?.read<ProductProvider>()
+      //                   .addToCartProduct(productItem: _search.first);
+      //             })
+      //           : null
+      //       : logger.i('');
+      // } else {
+      //   logger.i('--on message clean no');
       }
       // logger.i(
       //     "--message received ${msg.split('==')[0].trim()} ${_context?.read<AuthProvider>().isLoggedIn}");
