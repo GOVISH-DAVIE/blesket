@@ -264,7 +264,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                                             content: const ConfirmPayment(),
                                             actions: <Widget>[
                                               TextButton(
-                                                child: const Text('Approve'),
+                                                child: const Text('close'),
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
                                                 },

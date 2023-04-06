@@ -1,17 +1,45 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class SocketMessage {
+  Data? data;
+  String? action;
 
-import 'data.dart';
+  SocketMessage({this.data, this.action});
 
-part 'socket_message.freezed.dart';
-part 'socket_message.g.dart';
+  SocketMessage.fromJson(Map<String, dynamic> json) {
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    action = json['action'];
+  }
 
-@freezed
-class SocketMessage with _$SocketMessage {
-  factory SocketMessage({
-    Data? data,
-    String? action,
-  }) = _SocketMessage;
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    data['action'] = this.action;
+    return data;
+  }
+}
 
-  factory SocketMessage.fromJson(Map<String, dynamic> json) =>
-      _$SocketMessageFromJson(json);
+class Data {
+  int? id;
+  String? productName;
+  String? weight;
+  int? statusCode;
+
+  Data({this.id, this.productName, this.weight, this.statusCode});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    productName = json['product_name'];
+    weight = json['weight'];
+    statusCode = json['status_code'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['product_name'] = this.productName;
+    data['weight'] = this.weight;
+    data['status_code'] = this.statusCode;
+    return data;
+  }
 }

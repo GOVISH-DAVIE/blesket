@@ -33,6 +33,21 @@ class _CartContainerState extends State<CartContainer> {
               },
               type: outlineButtonDefault,
               child: const Text('connect socket')),
+          FullWithButton(
+              callback: () {
+                logger.i('message');
+                context.read<SocketsProvider>().handleOnMessage(msg: {
+                  "data": {
+                    "id": 11,
+                    "product_name": "Delmonte",
+                    "weight": "0.0000000000",
+                    "status_code": 1
+                  },
+                  "action": "update"
+                });
+              },
+              type: outlineButtonDefault,
+              child: const Text('simulate handle mesage')),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
@@ -48,10 +63,10 @@ class _CartContainerState extends State<CartContainer> {
                   )
                 : Column(
                     children: [
-                       ...?productProvider.cartListModel?.myCart?.map(
+                      ...?productProvider.cartListModel?.myCart?.map(
                         (e) => Dismissible(
                           confirmDismiss: (DismissDirection direction) async {
-                              return await showDialog(
+                            return await showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
@@ -74,9 +89,7 @@ class _CartContainerState extends State<CartContainer> {
                                                       .first
                                                       .slug!,
                                                   cartItemId: e.id!,
-                                                  context: context
-                                                  );
-
+                                                  context: context);
                                         },
                                         // Navigator.of(context).pop(true),
                                         child: const Text("Yes")),
@@ -146,7 +159,7 @@ class _CartContainerState extends State<CartContainer> {
                                       ),
                                     ],
                                   )),
-                                   SizedBox(
+                                  SizedBox(
                                     width: 100,
                                     child: Text(
                                       'Ksh ${productProvider.productLists.where((element) => element.id == e.product).first.variation?.where((element) => element.id == e.variations).first.price}',

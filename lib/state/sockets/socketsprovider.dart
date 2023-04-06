@@ -43,38 +43,34 @@ class SocketsProvider extends ChangeNotifier {
   }
 
   handleOnMessage({dynamic msg}) {
+    logger.i('on message');
+    print('on message');
     // logger.i('--on message ${_context?.read<AuthProvider>().isLoggedIn}');
     logger.i(
-        '--on message clean ${SocketMessage.fromJson(jsonDecode(msg)).data?.productName?.split(":")[1].trim()}');
+        '--on message clean ${SocketMessage.fromJson((msg)).data?.productName}');
 
     if (_context?.read<AuthProvider>().isLoggedIn == false) {
       // ScaffoldMessenger.of(_context!)
       //     .showSnackBar(const SnackBar(content: Text("Login to add to cart")));
     } else {
-      if ((SocketMessage.fromJson(jsonDecode(msg))
+      if ((SocketMessage.fromJson((msg))
                   .data
-                  ?.productName
-                  ?.split(":")[1]
-                  .trim() ==
+                  ?.productName ==
               "") ==
           false) {
         logger.i(
-            '--on message clean ${SocketMessage.fromJson(jsonDecode(msg)).data?.productName?.split(":").last.trim()}');
+            '--on message clean ${SocketMessage.fromJson((msg)).data?.productName}');
 
-        // List<ProductList>? _search = _context
-        //     ?.read<ProductProvider>()
-        //     .productLists
-        //     .where((element) =>
-        //         element.productName?.toLowerCase() ==
-        //         SocketMessage.fromJson(jsonDecode(msg))
-        //             .data
-        //             ?.productName
-        //             ?.split(":")
-        //             .last
-        //             .trim()
-        //             .toLowerCase())
-        //     .toList();
-      //   logger.i("search length ${_search?.length}");
+        List<ProductList>? _search = _context
+            ?.read<ProductProvider>()
+            .productLists
+            .where((element) =>
+                element.productName?.toLowerCase() ==
+                SocketMessage.fromJson((msg))
+                    .data
+                    ?.productName)
+            .toList();
+        logger.i("search length ${_search?.length}");
       //   logger.i(
       //       "search length weight ${SocketMessage.fromJson(jsonDecode(msg)).data?.weight}");
       //   (_search!.isNotEmpty)
