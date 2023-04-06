@@ -116,12 +116,12 @@ class ProductProvider extends ChangeNotifier {
     return await _api
         .post(
             endpoint: ProductEndPoints.addToCart,
-            params: {
-              "quantity": 1,
-              "product": 1,
-              "variations": 1,
-              "is_active": true
-            },
+            params:{
+      "quantity": 1,
+      "product": productItem.id,
+      "variations": productItem.variation?.first.id,
+      "is_active": true
+    },
             isjson: true)
         .then((value) {
       logger.i("---add to Cart ${value}");

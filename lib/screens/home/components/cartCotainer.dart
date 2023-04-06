@@ -33,21 +33,21 @@ class _CartContainerState extends State<CartContainer> {
               },
               type: outlineButtonDefault,
               child: const Text('connect socket')),
-          FullWithButton(
-              callback: () {
-                logger.i('message');
-                context.read<SocketsProvider>().handleOnMessage(msg: {
-                  "data": {
-                    "id": 11,
-                    "product_name": "Delmonte",
-                    "weight": "0.0000000000",
-                    "status_code": 1
-                  },
-                  "action": "update"
-                });
-              },
-              type: outlineButtonDefault,
-              child: const Text('simulate handle mesage')),
+          // FullWithButton(
+          //     callback: () {
+          //       logger.i('message');
+          //       context.read<SocketsProvider>().handleOnMessage(msg: {
+          //         "data": {
+          //           "id": 11,
+          //           "product_name": "Delmonte",
+          //           "weight": "0.0000000000",
+          //           "status_code": 1
+          //         },
+          //         "action": "update"
+          //       });
+          //     },
+          //     type: outlineButtonDefault,
+          //     child: const Text('simulate handle mesage')),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
