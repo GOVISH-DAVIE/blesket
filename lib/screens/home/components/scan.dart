@@ -45,37 +45,38 @@ class _ScanWidgetState extends State<ScanWidget> {
               if (value.length == 13) {
                 // logger.i(value.length);
                 // logger.i("logger ${value}");
-                // logger.i(
-                //     "logger ${context.read<ProductProvider>().productLists.length}");
-                // context.read<ProductProvider>().productLists.map((e) {
-                //   logger.i(e.isbn);
-                // });
-                // context.read<ProductProvider>().productLists.where((element) {
-                //   logger.i(element.isbn);
-                //   return element.isbn == value;
-                // });
-                // if (context
-                //     .read<ProductProvider>()
-                //     .productLists
-                //     .where((element) => element.isbn == value)
-                //     .isNotEmpty) {
-                  // productDialogBuilder(
-                  //     context,
-                  //     context
-                  //         .read<ProductProvider>()
-                  //         .productLists
-                  //         .where((element) => element.isbn == value)
-                  //         .first,
-                  //     true,
-                  //     white);
+                logger.i(
+                    "logger ${context.read<ProductProvider>().productLists.length}");
+                context.read<ProductProvider>().productLists.map((e) {
+                  logger.i(e.variation);
+                });
+                
+                context.read<ProductProvider>().productLists.where((element) {
+                  logger.i(element.variation);
+                  return  element.variation?.where((el) => el.isbn == value).length != 0;
+                });
+                if (context
+                    .read<ProductProvider>()
+                    .productLists
+                    .where((element) =>  element.variation?.where((el) => el.isbn == value).length != 0)
+                    .isNotEmpty) {
+                  productDialogBuilder(
+                      context,
+                      context
+                          .read<ProductProvider>()
+                          .productLists
+                          .where((element) =>  element.variation?.where((el) => el.isbn == value).length != 0)
+                          .first,
+                      true,
+                      white);
                   widget.goToCart();
-                  // context.read<ProductProvider>().addtocartBarCode(
-                  //     productItem: context
-                  //         .read<ProductProvider>()
-                  //         .productLists
-                  //         .where((element) => element.isbn == value)
-                  //         .first);
-                // }
+                  context.read<ProductProvider>().addtocartBarCode(
+                      productItem: context
+                          .read<ProductProvider>()
+                          .productLists
+                          .where((element) =>  element.variation?.where((el) => el.isbn == value).length != 0)
+                          .first);
+                }
               }
             },
             decoration: const InputDecoration(

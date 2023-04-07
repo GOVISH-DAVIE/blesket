@@ -18,6 +18,10 @@ class SocketsProvider extends ChangeNotifier {
   BuildContext? get context => _context;
   SimpleWebSocket? _socket;
   int tries = 0;
+
+  double currentWeight = 0;
+  String productName = '';
+
   connect({required String signalingUrl, required BuildContext context}) {
     _context = context;
     notifyListeners();
@@ -43,47 +47,84 @@ class SocketsProvider extends ChangeNotifier {
   }
 
   handleOnMessage({dynamic msg}) {
-    logger.i('on message');
-    print('on message');
+    logger.i('on message $msg');
+    print('on message ${msg.runtimeType}');
+  List<ProductList>?  productLists =  _context
+                    ?.read<ProductProvider>()
+                    .productLists;
     // logger.i('--on message ${_context?.read<AuthProvider>().isLoggedIn}');
     logger.i(
-        '--on message clean ${SocketMessage.fromJson((msg)).data?.productName}');
+        '--on message clean s ${SocketMessage.fromJson(jsonDecode(msg)).data?.productName?.split(":")}');
 
     if (_context?.read<AuthProvider>().isLoggedIn == false) {
       // ScaffoldMessenger.of(_context!)
       //     .showSnackBar(const SnackBar(content: Text("Login to add to cart")));
     } else {
-      if ((SocketMessage.fromJson((msg))
-                  .data
-                  ?.productName ==
-              "") ==
+      if ((SocketMessage.fromJson(jsonDecode(msg)).data?.productName == "") ==
           false) {
+        if (SocketMessage.fromJson(jsonDecode(msg)).data?.statusCode == 0) {
+          if (double.tryParse(
+                  SocketMessage.fromJson(jsonDecode(msg)).data!.weight!)! >
+              currentWeight) {
+            currentWeight =
+                double.tryParse(SocketMessage.fromJson(jsonDecode(msg)).data!.weight!)!;
+            notifyListeners();
+            _context?.read<ProductProvider>().addToCartProduct(
+                productItem: _context
+                    ?.read<ProductProvider>()
+                    .productLists
+                    .where((element) => element.productName == productName)
+                    .toList()
+                    .first);
+          } else {
+            currentWeight =
+                double.tryParse(SocketMessage.fromJson(jsonDecode(msg)).data!.weight!)!;
+            notifyListeners();
+            _context?.read<ProductProvider>().removeFromCart(
+productSlung: productLists!.where((element) => element.productName== productName).first.slug!,
+context: null,
+
+                cartItemId: _context
+                    ?.read<ProductProvider>()
+                    .cartListModel!.myCart!
+                    .where((element) =>element.product == productLists!.where((el) => el.productName ==productName).first.id)
+                    
+                    .first.id!);
+          }
+        }
+
+// SocketMessage.fromJson(jsonDecode(msg)).data?.weight != 0
+//                 ? Future.delayed(const Duration(seconds: 2), () {
+//                     _context
+//                         ?.read<ProductProvider>()
+//                         .addToCartProduct(productItem: _search.first);
+//                   })
+
         logger.i(
-            '--on message clean ${SocketMessage.fromJson((msg)).data?.productName}');
+            '--on message clean ${SocketMessage.fromJson(jsonDecode(msg)).data?.productName?.split(":")[1]}');
 
         List<ProductList>? _search = _context
             ?.read<ProductProvider>()
             .productLists
             .where((element) =>
                 element.productName?.toLowerCase() ==
-                SocketMessage.fromJson((msg))
+                SocketMessage.fromJson(jsonDecode(msg))
                     .data
-                    ?.productName?.toLowerCase())
+                    ?.productName
+                    ?.split(":")[1]
+                    .trim()
+                    .toLowerCase())
             .toList();
         logger.i("search length ${_search?.length}");
-      //   logger.i(
-      //       "search length weight ${SocketMessage.fromJson(jsonDecode(msg)).data?.weight}");
+        //   logger.i(
+        //       "search length weight ${SocketMessage.fromJson(jsonDecode(msg)).data?.weight}");
         (_search!.isNotEmpty)
-            ? SocketMessage.fromJson((msg)).data?.weight != 0
-                ? Future.delayed(Duration(seconds: 2), () {
-                    _context
-                        ?.read<ProductProvider>()
-                        .addToCartProduct(productItem: _search.first);
-                  })
-                : null
+            ? productName = _search.first.productName!
             : logger.i('');
-      // } else {
-      //   logger.i('--on message clean no');
+        notifyListeners();
+        logger.i(productName);
+        // } else {
+        //   logger.i('--on message clean no');
       }
       // logger.i(
       //     "--message received ${msg.split('==')[0].trim()} ${_context?.read<AuthProvider>().isLoggedIn}");

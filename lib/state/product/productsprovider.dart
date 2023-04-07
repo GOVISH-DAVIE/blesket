@@ -84,8 +84,12 @@ class ProductProvider extends ChangeNotifier {
       notifyListeners();
       _cartListModel = CartListModel.fromJson(value.data);
       logger.i("checking my cart ${CartListModel.fromJson(value.data).myCart}");
-      for (var i = 0; i < CartListModel.fromJson(value.data).myCart!.length; i++) {
-        _total = _total + int.parse("${productLists.where((element) => element.id == CartListModel.fromJson(value.data).myCart![i].product).first.variation?.where((element) => element.id ==  CartListModel.fromJson(value.data).myCart![i].variations).first.price}");
+      for (var i = 0;
+          i < CartListModel.fromJson(value.data).myCart!.length;
+          i++) {
+        _total = _total +
+            int.parse(
+                "${productLists.where((element) => element.id == CartListModel.fromJson(value.data).myCart![i].product).first.variation?.where((element) => element.id == CartListModel.fromJson(value.data).myCart![i].variations).first.price}");
       }
       CartListModel.fromJson(value.data).myCart?.map((e) {
         logger.i(
@@ -103,12 +107,12 @@ class ProductProvider extends ChangeNotifier {
     });
   }
 
-  Future addToCartProduct({required ProductList productItem}) async {
+  Future addToCartProduct({required ProductList? productItem}) async {
     logger.i(productItem);
     logger.i({
       "quantity": 1,
-      "product": productItem.id,
-      "variations": productItem.variation?.first.id,
+      "product": productItem?.id,
+      "variations": productItem?.variation?.first.id,
       "is_active": true
     });
     _addtoCartBusy = true;
@@ -116,12 +120,12 @@ class ProductProvider extends ChangeNotifier {
     return await _api
         .post(
             endpoint: ProductEndPoints.addToCart,
-            params:{
-      "quantity": 1,
-      "product": productItem.id,
-      "variations": productItem.variation?.first.id,
-      "is_active": true
-    },
+            params: {
+              "quantity": 1,
+              "product": productItem?.id,
+              "variations": productItem?.variation?.first.id,
+              "is_active": true
+            },
             isjson: true)
         .then((value) {
       logger.i("---add to Cart ${value}");
@@ -217,11 +221,10 @@ class ProductProvider extends ChangeNotifier {
     });
   }
 
-  removeFromCart({
-    required String productSlung,
-    required int cartItemId,
-    required BuildContext context
-  }) async {
+  removeFromCart(
+      {required String productSlung,
+      required int? cartItemId,
+      required BuildContext? context}) async {
     return await _api
         .delete(
             endpoint:
@@ -229,12 +232,16 @@ class ProductProvider extends ChangeNotifier {
         .then((value) {
       logger.i("--removing cart ${value.data}");
       cartList();
-
-                                                  Navigator.of(context).pop();
+if (context != null) {
+      Navigator.of(context).pop();
+  
+}
     }).catchError((onError) {
       logger.e("--removing cart error $onError");
-
-                                                  Navigator.of(context).pop();
+if (context != null) {
+      Navigator.of(context).pop();
+  
+}
       return throw onError;
     });
   }

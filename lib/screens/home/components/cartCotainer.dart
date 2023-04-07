@@ -1,5 +1,7 @@
 // ignore: file_names
 
+import 'dart:convert';
+
 import 'package:blesket/components/buttons.dart';
 import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/state/product/productendpoints.dart';
@@ -33,21 +35,21 @@ class _CartContainerState extends State<CartContainer> {
               },
               type: outlineButtonDefault,
               child: const Text('connect socket')),
-          // FullWithButton(
-          //     callback: () {
-          //       logger.i('message');
-          //       context.read<SocketsProvider>().handleOnMessage(msg: {
-          //         "data": {
-          //           "id": 11,
-          //           "product_name": "Delmonte",
-          //           "weight": "0.0000000000",
-          //           "status_code": 1
-          //         },
-          //         "action": "update"
-          //       });
-          //     },
-          //     type: outlineButtonDefault,
-          //     child: const Text('simulate handle mesage')),
+          FullWithButton(
+              callback: () {
+                logger.i('message');
+                context.read<SocketsProvider>().handleOnMessage(msg:jsonEncode({
+    "data": {
+        "id": 11,
+        "product_name": "0: UNGA JOGOO",
+        "weight": "0.0000000000",
+        "status_code": 1
+    },
+    "action": "update"
+}));
+              },
+              type: outlineButtonDefault,
+              child: const Text('simulate handle mesage')),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
