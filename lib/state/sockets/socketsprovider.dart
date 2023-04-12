@@ -8,7 +8,6 @@ import 'package:blesket/state/auth/AuthProvider.dart';
 import 'package:blesket/state/product/productsprovider.dart';
 import 'package:blesket/utils/constants.dart';
 import 'package:blesket/utils/logger.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -18,6 +17,8 @@ class SocketsProvider extends ChangeNotifier {
   BuildContext? get context => _context;
   SimpleWebSocket? _socket;
   int tries = 0;
+  bool _isConnected = false;
+  bool get isConnected => _isConnected;
 
   double currentWeight = 0;
   String productName = '';
@@ -29,6 +30,9 @@ class SocketsProvider extends ChangeNotifier {
     _socket = SimpleWebSocket(signalingUrl);
     _socket?.onOpen = () {
       logger.i('--connected Sockets');
+      _isConnected = true;
+      notifyListeners();
+      logger.d('$isConnected');
     };
     _socket?.onMessage = (msg) => handleOnMessage(msg: msg);
     _socket?.onClose = (int? code, String? reason) {
@@ -42,6 +46,8 @@ class SocketsProvider extends ChangeNotifier {
         ScaffoldMessenger.of(_context!).showSnackBar(SnackBar(
             content: Text('Error connecting to the Socket Server $tries')));
       }
+      _isConnected = false;
+      notifyListeners();
     };
     _socket?.connect();
   }

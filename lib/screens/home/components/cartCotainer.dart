@@ -27,29 +27,46 @@ class _CartContainerState extends State<CartContainer> {
       builder: (context, productProvider, child) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          FullWithButton(
-              callback: () {
-                context
-                    .read<SocketsProvider>()
-                    .connect(signalingUrl: signalingEndPoint, context: context);
-              },
-              type: outlineButtonDefault,
-              child: const Text('connect socket')),
-          FullWithButton(
-              callback: () {
-                logger.i('message');
-                context.read<SocketsProvider>().handleOnMessage(msg:jsonEncode({
-    "data": {
-        "id": 11,
-        "product_name": "0: UNGA JOGOO",
-        "weight": "0.0000000000",
-        "status_code": 1
-    },
-    "action": "update"
-}));
-              },
-              type: outlineButtonDefault,
-              child: const Text('simulate handle mesage')),
+        context.read<SocketsProvider>().isConnected==true?  Container(
+            height: 20,
+            width: 20,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.green
+            ),
+          ):Container(
+            height: 20,
+            width: 20,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: dustred
+            ),
+          ),
+//           FullWithButton(
+//               callback: () {
+//                 context
+//                     .read<SocketsProvider>()
+//                     .connect(signalingUrl: signalingEndPoint, context: context);
+//               },
+//               type: outlineButtonDefault,
+//               child: const Text('connect socket')),
+//           FullWithButton(
+//               callback: () {
+//                 logger.i('message');
+//                 context.read<SocketsProvider>().handleOnMessage(msg:jsonEncode({
+//     "data": {
+//         "id": 11,
+//         "product_name": "0: UNGA JOGOO",
+//         "weight": "0.0000000000",
+//         "status_code": 1
+//     },
+//     "action": "update"
+// }));
+//               },
+//               type: outlineButtonDefault,
+//               child: const Text('simulate handle mesage')),
+         
+         
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
