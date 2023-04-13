@@ -225,6 +225,7 @@ class ProductProvider extends ChangeNotifier {
       {required String productSlung,
       required int? cartItemId,
       required BuildContext? context}) async {
+        logger.e("trying to remove $productSlung");
     return await _api
         .delete(
             endpoint:
