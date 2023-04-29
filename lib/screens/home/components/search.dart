@@ -1,5 +1,5 @@
 import 'package:blesket/components/buttons.dart';
-import 'package:blesket/models/productlist.dart'; 
+import 'package:blesket/models/productlist.dart';
 import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/state/product/productendpoints.dart';
 

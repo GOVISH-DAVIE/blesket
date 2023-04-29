@@ -27,29 +27,37 @@ class _CartContainerState extends State<CartContainer> {
       builder: (context, productProvider, child) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-        context.read<SocketsProvider>().isConnected==true?  Container(
-            height: 20,
-            width: 20,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.green
-            ),
-          ):Container(
-            height: 20,
-            width: 20,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: dustred
-            ),
-          ),
-//           FullWithButton(
-//               callback: () {
-//                 context
-//                     .read<SocketsProvider>()
-//                     .connect(signalingUrl: signalingEndPoint, context: context);
-//               },
-//               type: outlineButtonDefault,
-//               child: const Text('connect socket')),
+          context.read<SocketsProvider>().isConnected == true
+              ? Container(
+                  height: 20,
+                  width: 20,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.green),
+                )
+              : Row(
+                  children: [
+                    Container(
+                      height: 20,
+                      width: 20,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: dustred),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left:8.0),
+                      child: FullWithButton(
+                          callback: () {
+                            context.read<SocketsProvider>().connect(
+                                signalingUrl: signalingEndPoint,
+                                context: context);
+                          },
+                          type: outlineButtonDefault,
+                          child: const Text('connect socket')),
+                    )
+                  ],
+                ),
+
 //           FullWithButton(
 //               callback: () {
 //                 logger.i('message');
@@ -65,8 +73,7 @@ class _CartContainerState extends State<CartContainer> {
 //               },
 //               type: outlineButtonDefault,
 //               child: const Text('simulate handle mesage')),
-         
-         
+
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(

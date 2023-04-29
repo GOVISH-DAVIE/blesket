@@ -101,7 +101,7 @@ class _ShopListState extends State<ShopList> {
                       ],
                     ),
                   ),
-                 Column(
+                  Column(
                       children: productProvider.searchProducts.length > 0
                           ? productProvider.searchProducts
                               .map(
@@ -121,7 +121,8 @@ class _ShopListState extends State<ShopList> {
                                       decoration: BoxDecoration(
                                           // color: black,
                                           image: DecorationImage(
-                                              image: NetworkImage(e.mobileImage!))),
+                                              image: NetworkImage(
+                                                  e.mobileImage!))),
                                     ),
                                     title: Text(
                                       '${e.productName}',

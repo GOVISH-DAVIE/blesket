@@ -50,22 +50,33 @@ class _ScanWidgetState extends State<ScanWidget> {
                 context.read<ProductProvider>().productLists.map((e) {
                   logger.i(e.variation);
                 });
-                
+
                 context.read<ProductProvider>().productLists.where((element) {
                   logger.i(element.variation);
-                  return  element.variation?.where((el) => el.isbn == value).length != 0;
+                  return element.variation
+                          ?.where((el) => el.isbn == value)
+                          .length !=
+                      0;
                 });
                 if (context
                     .read<ProductProvider>()
                     .productLists
-                    .where((element) =>  element.variation?.where((el) => el.isbn == value).length != 0)
+                    .where((element) =>
+                        element.variation
+                            ?.where((el) => el.isbn == value)
+                            .length !=
+                        0)
                     .isNotEmpty) {
                   productDialogBuilder(
                       context,
                       context
                           .read<ProductProvider>()
                           .productLists
-                          .where((element) =>  element.variation?.where((el) => el.isbn == value).length != 0)
+                          .where((element) =>
+                              element.variation
+                                  ?.where((el) => el.isbn == value)
+                                  .length !=
+                              0)
                           .first,
                       true,
                       white);
@@ -74,7 +85,11 @@ class _ScanWidgetState extends State<ScanWidget> {
                       productItem: context
                           .read<ProductProvider>()
                           .productLists
-                          .where((element) =>  element.variation?.where((el) => el.isbn == value).length != 0)
+                          .where((element) =>
+                              element.variation
+                                  ?.where((el) => el.isbn == value)
+                                  .length !=
+                              0)
                           .first);
                 }
               }

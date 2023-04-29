@@ -225,7 +225,7 @@ class ProductProvider extends ChangeNotifier {
       {required String productSlung,
       required int? cartItemId,
       required BuildContext? context}) async {
-        logger.e("trying to remove $productSlung");
+    logger.e("trying to remove $productSlung");
     return await _api
         .delete(
             endpoint:
@@ -233,16 +233,14 @@ class ProductProvider extends ChangeNotifier {
         .then((value) {
       logger.i("--removing cart ${value.data}");
       cartList();
-if (context != null) {
-      Navigator.of(context).pop();
-  
-}
+      if (context != null) {
+        Navigator.of(context).pop();
+      }
     }).catchError((onError) {
       logger.e("--removing cart error $onError");
-if (context != null) {
-      Navigator.of(context).pop();
-  
-}
+      if (context != null) {
+        Navigator.of(context).pop();
+      }
       return throw onError;
     });
   }

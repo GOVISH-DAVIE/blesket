@@ -50,7 +50,7 @@ class Api implements ApiAbstract {
     return _dio.post('$baseUrl$endpoint',
         data: isjson == true ? (params) : FormData.fromMap(params),
         options: Options(headers: <String, String>{
-          'authorization': 'Bearer ${user!.access!}', 
+          'authorization': 'Bearer ${user!.access!}',
           'accept': 'application/json'
         }));
   }

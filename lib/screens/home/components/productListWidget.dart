@@ -1,4 +1,3 @@
- 
 import 'package:blesket/models/productlist.dart';
 import 'package:blesket/screens/receipts/components/popsup.dart';
 import 'package:blesket/state/product/productendpoints.dart';
@@ -34,7 +33,10 @@ class _ProductListState extends State<ProductListWidget> {
                 width: 100,
                 height: 200,
                 child: Image.network(
-                    width: 100, height: 200, fit: BoxFit.cover, widget.e.mobileImage!
+                    width: 100,
+                    height: 200,
+                    fit: BoxFit.cover,
+                    widget.e.mobileImage!
                     // e.images!,
                     ),
               ),
